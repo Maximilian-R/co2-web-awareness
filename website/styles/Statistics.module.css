@@ -1,3 +1,8 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .statistics {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -17,4 +22,27 @@
 
 .statistics > div > div {
   font-weight: 700;
+}
+
+.button {
+  margin-top: auto;
+  align-self: flex-end;
+  background: var(--color-4);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  appearance: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: var(--backround-1);
+}
+
+.button i {
+  display: flex;
+  fill: var(--backround-1);
+  width: 1rem;
 }

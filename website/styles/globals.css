@@ -6,6 +6,7 @@
   --color-2: #ecd7c1;
   --color-3: #b7b8ea;
   --color-4: #e4afe6;
+  --icon-color: var(--text-color);
   --progress-value-color: var(--color-1);
   font-family: "Varela Round", sans-serif;
 }
@@ -29,7 +30,7 @@ body {
 
 body > div {
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 12rem 1fr;
   gap: 2rem;
 }
 
@@ -64,6 +65,7 @@ h1 {
 
 .highlight {
   font-size: 1.5em;
+  color: var(--backround-1);
   background: var(--color-1);
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;

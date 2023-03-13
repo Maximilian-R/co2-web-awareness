@@ -22,48 +22,10 @@
 }
 
 .parameter > div > input {
-  /* flex-grow: 1; */
+  font-family: inherit;
   background: var(--backround-2);
   border: none;
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: 1rem;
-}
-
-.radioGroup {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.radio {
-  box-sizing: border-box;
-  /* height: 2rem; */
-  width: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.radio input[type="radio"] {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  border-radius: 0.5rem;
-  background-color: var(--backround-2);
-  appearance: none;
-  cursor: pointer;
-}
-
-.radio input[type="radio"]:hover {
-}
-
-.radio input[type="radio"]:checked {
-  background-color: var(--color-1);
-}
-
-.radio span {
-  position: absolute;
-  font-size: 0.9rem;
-  color: var(--text-color);
-  pointer-events: none;
 }

@@ -1,10 +1,15 @@
 .aside {
-  /* background: var(--backround-1); */
-
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: sticky;
+}
+
+.brand {
+  background: var(--backround-1);
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .ul {
@@ -13,7 +18,6 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  /* background: var(--backround-2); */
 }
 
 .ul li {
@@ -33,6 +37,7 @@
 li.active {
   background: transparent;
   color: var(--backround-1);
+  --icon-color: var(--backround-1);
 }
 
 li.active + li {
@@ -41,4 +46,16 @@ li.active + li {
 
 li.previous {
   border-bottom-right-radius: 1rem;
+}
+
+.link {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.link i {
+  display: flex;
+  fill: var(--icon-color);
+  width: 1rem;
 }

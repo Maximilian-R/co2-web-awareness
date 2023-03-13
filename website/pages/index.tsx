@@ -34,7 +34,6 @@ export default function Home() {
 
           <SystemSegements style={{ gridArea: "c" }}></SystemSegements>
         </div>
-        <button>Copy to calculator</button>
       </main>
     </>
   );
