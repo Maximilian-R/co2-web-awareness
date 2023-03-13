@@ -1,0 +1,89 @@
+:root {
+  --backround-1: #fff;
+  --backround-2: #dad8e3;
+  --text-color: #3b3b3b;
+  --color-1: #a9e4c9;
+  --color-2: #ecd7c1;
+  --color-3: #b7b8ea;
+  --color-4: #e4afe6;
+  --progress-value-color: var(--color-1);
+  font-family: "Varela Round", sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  /* background: var(--backround-2); */
+  background: rgb(223, 224, 236);
+  background: radial-gradient(
+    circle,
+    rgba(223, 224, 236, 1) 0%,
+    rgba(154, 161, 191, 1) 100%
+  );
+  color: var(--text-color);
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+body > div {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 2rem;
+}
+
+main {
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+a {
+  /* color: white; */
+  color: inherit;
+}
+
+h1 {
+  color: var(--backround-1);
+}
+
+.card {
+  background: var(--backround-1);
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.card h2 {
+  font-size: 1rem;
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+.highlight {
+  font-size: 1.5em;
+  background: var(--color-1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.75rem;
+  width: auto;
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--backround-2);
+  box-shadow: none;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--progress-value-color);
+  border-radius: 0.5rem;
+}

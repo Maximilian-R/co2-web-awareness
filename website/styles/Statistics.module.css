@@ -1,0 +1,20 @@
+.statistics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.statistics label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.statistics > div {
+  padding: 0.5rem;
+  background: var(--backround-2);
+  border-radius: 0.5rem;
+}
+
+.statistics > div > div {
+  font-weight: 700;
+}

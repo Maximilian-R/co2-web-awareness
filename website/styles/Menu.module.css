@@ -1,0 +1,44 @@
+.aside {
+  /* background: var(--backround-1); */
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+}
+
+.ul {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  /* background: var(--backround-2); */
+}
+
+.ul li {
+  padding: 1rem;
+  background: var(--backround-1);
+}
+
+.ul li:last-child {
+  flex-grow: 1;
+}
+
+.ul li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li.active {
+  background: transparent;
+  color: var(--backround-1);
+}
+
+li.active + li {
+  border-top-right-radius: 1rem;
+}
+
+li.previous {
+  border-bottom-right-radius: 1rem;
+}

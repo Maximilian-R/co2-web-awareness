@@ -1,0 +1,37 @@
+.segments {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.segment {
+}
+
+.segment label {
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.segment div {
+  display: grid;
+  grid-template-columns: 1fr 2rem;
+  gap: 2rem;
+  align-items: baseline;
+}
+
+.value {
+  font-weight: 700;
+}
+
+.color1 {
+  --progress-value-color: var(--color-1);
+}
+.color2 {
+  --progress-value-color: var(--color-2);
+}
+.color3 {
+  --progress-value-color: var(--color-3);
+}
+.color4 {
+  --progress-value-color: var(--color-4);
+}
