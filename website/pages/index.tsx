@@ -10,7 +10,7 @@ import { formatCO2 } from "@/utility/formats";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
-  const { state, isLoading, error } = useCO2(url);
+  const { state, status, error } = useCO2(url);
 
   return (
     <>
@@ -36,6 +36,7 @@ export default function Home() {
         </h1>
 
         <ReportForm onChange={setUrl}></ReportForm>
+        {true && <Progressbar status={status}></Progressbar>}
         {state && <Report report={state}></Report>}
       </main>
     </>
@@ -96,3 +97,11 @@ function ReportForm({ onChange }: { onChange: (value: string) => void }) {
     </div>
   );
 }
+
+export const Progressbar = ({ status }: any) => {
+  return (
+    <div className="card">
+      <progress max="100" value={status} className={styles.progress}></progress>
+    </div>
+  );
+};
