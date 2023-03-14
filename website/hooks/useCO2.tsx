@@ -32,15 +32,22 @@ export default function useCO2(url: string) {
       setIsGenerating(false);
     }
 
+
+    function onResultEvent(value: any) {
+      const bytes = value.sumSize;
+      const gridIntensity = parseFloat(averageIntensity.data.SWE);
+      const options = {gridIntensity: {device :gridIntensity, network :gridIntensity, dataCenter: gridIntensity}}
+
     function onConnectError() {
       setError("Could not connect to the server");
     }
 
     function onResultEvent(body: any) {
       const bytes = body.sumSize;
+
       setState({
         url: url,
-        co2: sustainableWebDesign.perByte(bytes),
+        co2: sustainableWebDesign.perByteTrace(bytes, true, options).co2,
         co2_intensity: parseFloat(averageIntensity.data.SWE),
         bytes: bytes,
       });
@@ -53,6 +60,12 @@ export default function useCO2(url: string) {
       setStatus(body.status);
     }
 
+    function onErrorEvent(error: any){
+      console.log(error);
+      setError(error);
+    }
+
+    socket.on("error", onErrorEvent);
     socket.on("status", onStatusEvent);
     socket.on("connect_error", onConnectError);
     socket.on("connect", onConnect);
@@ -60,6 +73,7 @@ export default function useCO2(url: string) {
     socket.on("result", onResultEvent);
 
     return () => {
+      socket.off("error", onErrorEvent);
       socket.off("status", onStatusEvent);
       socket.off("connect_error", onConnectError);
       socket.off("connect", onConnect);
