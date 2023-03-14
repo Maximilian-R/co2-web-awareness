@@ -22,24 +22,29 @@ export default function Home() {
       </Head>
       <Menu></Menu>
       <main className={styles.main}>
-        <h1>
-          {state ? (
-            <>
-              Report for:{" "}
-              <a href="seb.se" target="_blank">
-                {state.url}
-              </a>
-            </>
-          ) : (
-            <>Report</>
-          )}
-        </h1>
-
+        <Heading url={state?.url}></Heading>
         <ReportForm onChange={setUrl}></ReportForm>
         {isGenerating && <Progressbar status={status}></Progressbar>}
         {state && <Report report={state}></Report>}
       </main>
     </>
+  );
+}
+
+function Heading({ url }: { url?: string }) {
+  return (
+    <h1>
+      {url ? (
+        <>
+          Report for:{" "}
+          <a href="seb.se" target="_blank">
+            {url}
+          </a>
+        </>
+      ) : (
+        <>Report</>
+      )}
+    </h1>
   );
 }
 

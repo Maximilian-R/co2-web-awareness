@@ -40,6 +40,7 @@ export default function useCO2(url: string) {
         co2_intensity: parseFloat(averageIntensity.data.SWE),
         bytes: bytes,
       });
+      socket.disconnect();
     }
 
     function onStatusEvent(value: any) {
