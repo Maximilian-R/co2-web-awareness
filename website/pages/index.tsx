@@ -101,7 +101,7 @@ function ReportForm({ onChange }: { onChange: (value: string) => void }) {
 export const Progressbar = ({ status }: any) => {
   return (
     <div className="card">
-      <label>Generating... {status}%</label>
+      <label>Generating... {Math.min(Math.max(status, 0), 100)}%</label>
       <progress max="100" value={status} className={styles.progress}></progress>
     </div>
   );
