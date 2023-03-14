@@ -43,7 +43,7 @@ export default function useCO2(url: string) {
     }
 
     function onStatusEvent(value: any) {
-      setStatus(value);
+      setStatus(value.status);
     }
 
     socket.on("status", onStatusEvent);
