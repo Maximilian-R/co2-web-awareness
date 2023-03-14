@@ -1,19 +1,20 @@
 import Head from "next/head";
 import Menu from "@/components/menu";
 import styles from "@/styles/Calculator.module.css";
-import Parameters, { IOnChange, IState } from "@/components/parameters";
+import Parameters, { IOnChange } from "@/components/parameters";
 import { useEffect, useState } from "react";
-import { bytesUnitDecimal, formatCO2 } from "@/utility/formats";
-import { sustainableWebDesign } from "@/utility/co2";
+import { formatCO2 } from "@/utility/formats";
+import { calculateCO2, IParameters } from "@/utility/co2";
 import { useRouter } from "next/router";
 
 export default function Calculator() {
   const router = useRouter();
-  const [state, setState] = useState<IState>({
+  const [state, setState] = useState<IParameters>({
     views: 10000,
     bytes: 1000,
     country: "SE",
-    returning: 25,
+    returningViewsPercentage: 25,
+    returningBytesPercentage: 50,
     unit: "kB",
   });
 
@@ -22,12 +23,6 @@ export default function Calculator() {
       ...state,
       [property]: value,
     }));
-  };
-
-  const calculation = () => {
-    // TODO: apply intensity and returning users
-    const bytes = state.bytes * bytesUnitDecimal(state.unit);
-    return sustainableWebDesign.perByte(bytes) * state.views;
   };
 
   useEffect(() => {
@@ -54,7 +49,7 @@ export default function Calculator() {
           <div>
             Produces{" "}
             <span className="highlight">
-              {formatCO2(calculation(), "kg")} of CO2
+              {formatCO2(calculateCO2(state), "kg")} of CO2
             </span>{" "}
             every year
           </div>

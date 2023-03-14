@@ -53,10 +53,11 @@ export default function useCO2(url: string) {
           dataCenter: intensity,
         },
       };
+      const trace = sustainableWebDesign.perByteTrace(bytes, false, options);
 
       setState({
         url: url,
-        co2: sustainableWebDesign.perByteTrace(bytes, true, options).co2,
+        co2: trace.co2,
         co2_intensity: parseFloat(averageIntensity.data.SWE),
         bytes: bytes,
       });

@@ -1,24 +1,16 @@
 import styles from "@/styles/Parameters.module.css";
-import { BytesUnit } from "@/utility/formats";
+import { IParameters } from "@/utility/co2";
 import Radio from "./radio";
 
 export interface IOnChange {
   (property: string, value: any): void;
 }
 
-export interface IState {
-  views: number;
-  bytes: number;
-  unit: BytesUnit;
-  country: string;
-  returning: number;
-}
-
 export default function Parameters({
   state,
   onChange,
 }: {
-  state: IState;
+  state: IParameters;
   onChange: IOnChange;
 }) {
   return (
@@ -53,23 +45,39 @@ export default function Parameters({
         </div>
 
         <div className="form-group">
-          <label>Country</label>
+          <label>Returning views %</label>
           <div className={styles.parameter}>
             <input
-              value={state.country}
-              onChange={(event) => onChange("country", event.target.value)}
+              type="number"
+              max="100"
+              value={state.returningViewsPercentage}
+              onChange={(event) =>
+                onChange("returningViewsPercentage", event.target.value)
+              }
             ></input>
           </div>
         </div>
 
         <div className="form-group">
-          <label>Returning users %</label>
+          <label>Bytes per returning view %</label>
           <div className={styles.parameter}>
             <input
               type="number"
               max="100"
-              value={state.returning}
-              onChange={(event) => onChange("returning", event.target.value)}
+              value={state.returningBytesPercentage}
+              onChange={(event) =>
+                onChange("returningBytesPercentage", event.target.value)
+              }
+            ></input>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label>Country</label>
+          <div className={styles.parameter}>
+            <input
+              value={state.country}
+              onChange={(event) => onChange("country", event.target.value)}
             ></input>
           </div>
         </div>
