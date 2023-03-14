@@ -7,5 +7,6 @@
 }
 
 .progress {
-  width: auto;
+  width: 100%;
+  --progress-value-color: var(--color-1);
 }
