@@ -14,7 +14,7 @@ export interface IReport {
 
 export default function useCO2(url: string) {
   const [state, setState] = useState<IReport>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState(0);
   const [error, setError] = useState("");
 
     useEffect(() => {
@@ -43,13 +43,18 @@ export default function useCO2(url: string) {
           bytes: bytes,
         });
       }
-  
+
+      function onStatusEvent(value : any) {
+       setStatus(value);
+      }
+      
+      socket.on('status', onStatusEvent);
       socket.on('connect', onConnect);
       socket.on('disconnect', onDisconnect);
       socket.on('result', onResultEvent);
   
       return () => {
-        console.log('CLOSED');
+        socket.off('status', onStatusEvent);
         socket.off('connect', onConnect);
         socket.off('disconnect', onDisconnect);
         socket.off('result', onResultEvent);
@@ -58,7 +63,7 @@ export default function useCO2(url: string) {
 
   return {
     state,
-    isLoading,
+    status,
     error,
   };
 }
