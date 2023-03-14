@@ -18,12 +18,15 @@ app.use(cors());
 const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
 const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance'], port: chrome.port};
 
+
+
 io.on('connection', (socket) => {
   console.log('Connection established');
  
   socket.on('payload', async(payload) =>{
     try{
       let nr =0;
+      let sumSize = 0;
       log.events.on('status', ()=>{
         socket.emit('status', {status : nr++});
       })
@@ -44,24 +47,6 @@ io.on('connection', (socket) => {
   });
 });
 
-
-// const getApiAndEmit = async(socket) => {
-//   socket.on('payload', async(payload) =>{
-//     try{
-//       const runnerResult = await lighthouse("https://seb.se", options);
-//       let newArray = runnerResult.lhr.audits["network-requests"].details.items;
-//       newArray.forEach(element =>{
-//         sumSize += element.transferSize
-//       })
-//       console.log(sumSize);
-//       socket.emit('result', {sumSize});
-//     }
-//     catch(e){
-//       console.log(e);
-//     }
-//   })
-// };
-
 app.set('port', process.env.PORT || 3001);
 
 httpServer.listen(app.get('port'), function () {
@@ -69,19 +54,4 @@ httpServer.listen(app.get('port'), function () {
   console.log('Running on : ', port);
 });
 
-let sumSize = 0; 
 
-// app.post('/report', async function(req, res) {
-//   })
-
-// `.report` is the HTML report as a string
-// const reportHtml = runnerResult.report;
-// fs.writeFileSync('lhreport.html', reportHtml);
-
-// `.lhr` is the Lighthouse Result as a JS object
-// console.log('Report is done for', runnerResult.lhr.finalDisplayedUrl);
-// console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-// app.listen(3001, () =>{
-//   console.log("Listening on port 3001")
-// })
-//await chrome.kill();
