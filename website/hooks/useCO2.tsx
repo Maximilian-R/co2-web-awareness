@@ -19,11 +19,12 @@ export default function useCO2(url: string) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // const response = await fetch(`/report/${url}`);
-        // const json = await response.json();
-        // console.log(json);
+        const headers  = {"Content-Type" : "application/json"}
+        const response = await fetch("http://localhost:3001/report", {headers, method: "POST", body: JSON.stringify({url})});
+        const json = await response.json();
+        console.log(json);
 
-        const bytes = 100000;
+        const bytes = json.sumSize;
 
         setState({
           url: url,
