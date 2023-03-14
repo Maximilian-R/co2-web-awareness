@@ -2,12 +2,13 @@ import { IReport } from "@/hooks/useCO2";
 import styles from "@/styles/Statistics.module.css";
 import { formatBytes, formatCO2 } from "@/utility/formats";
 import { useRouter } from "next/router";
+import { CSSProperties } from "react";
 
 export default function Statistics({
   style,
   report,
 }: {
-  style: any;
+  style: CSSProperties | undefined;
   report: IReport;
 }) {
   const router = useRouter();
@@ -26,7 +27,7 @@ export default function Statistics({
         </div>
         <div>
           <label>CO2 intensity</label>
-          <div>{formatCO2(report.co2_intensity) ?? "--"}/kWh</div>
+          <div>{formatCO2(report.co2Intensity) ?? "--"}/kWh</div>
         </div>
         <div>
           <label>Transfered size</label>

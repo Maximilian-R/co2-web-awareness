@@ -3,6 +3,13 @@ import { averageIntensity } from "@tgwf/co2";
 import { sustainableWebDesign } from "@/utility/co2";
 import { io } from "socket.io-client";
 
+export interface IReport {
+  url: string;
+  co2: number;
+  co2Intensity: number;
+  bytes: number;
+}
+
 export interface IResultEvent {
   bytes: number;
 }
@@ -13,13 +20,6 @@ export interface IStatusEvent {
 
 export interface IErrorEvent {
   error: string;
-}
-
-export interface IReport {
-  url: string;
-  co2: number;
-  co2_intensity: number;
-  bytes: number;
 }
 
 export default function useCO2(url: string) {
@@ -58,7 +58,7 @@ export default function useCO2(url: string) {
       setState({
         url: url,
         co2: trace.co2,
-        co2_intensity: parseFloat(averageIntensity.data.SWE),
+        co2Intensity: parseFloat(averageIntensity.data.SWE),
         bytes: bytes,
       });
       setError("");

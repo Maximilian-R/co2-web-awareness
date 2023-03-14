@@ -7,16 +7,18 @@ import { formatCO2 } from "@/utility/formats";
 import { calculateCO2, IParameters } from "@/utility/co2";
 import { useRouter } from "next/router";
 
+const defaultState: IParameters = {
+  views: 10000,
+  bytes: 1000,
+  country: "SE",
+  returningViewsPercentage: 25,
+  returningBytesPercentage: 50,
+  unit: "kB",
+};
+
 export default function Calculator() {
   const router = useRouter();
-  const [state, setState] = useState<IParameters>({
-    views: 10000,
-    bytes: 1000,
-    country: "SE",
-    returningViewsPercentage: 25,
-    returningBytesPercentage: 50,
-    unit: "kB",
-  });
+  const [state, setState] = useState<IParameters>(defaultState);
 
   const onChange: IOnChange = (property: string, value: any) => {
     setState((state) => ({

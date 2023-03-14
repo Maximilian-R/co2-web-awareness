@@ -105,7 +105,13 @@ function ReportForm({ onChange }: { onChange: (value: string) => void }) {
   );
 }
 
-export const Progressbar = ({ status, error }: any) => {
+export const Progressbar = ({
+  status,
+  error,
+}: {
+  status: number;
+  error: string;
+}) => {
   return (
     <div className="card">
       <label>Generating... {Math.min(Math.max(status, 0), 100)}%</label>

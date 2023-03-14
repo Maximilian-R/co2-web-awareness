@@ -1,12 +1,13 @@
 import { IReport } from "@/hooks/useCO2";
 import styles from "@/styles/SystemSegments.module.css";
 import { formatCO2 } from "@/utility/formats";
+import { CSSProperties } from "react";
 
 export default function SystemSegements({
   style,
   report,
 }: {
-  style: any;
+  style: CSSProperties | undefined;
   report: IReport;
 }) {
   const { co2 } = report;
