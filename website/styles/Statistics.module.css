@@ -9,11 +9,6 @@
   gap: 1rem;
 }
 
-.statistics label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
 .statistics > div {
   padding: 0.5rem;
   background: var(--backround-2);
@@ -27,22 +22,5 @@
 .button {
   margin-top: auto;
   align-self: flex-end;
-  background: var(--color-4);
-  border: none;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  appearance: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-family: inherit;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  color: var(--backround-1);
-}
-
-.button i {
-  display: flex;
-  fill: var(--backround-1);
-  width: 1rem;
+  margin-top: 1rem;
 }

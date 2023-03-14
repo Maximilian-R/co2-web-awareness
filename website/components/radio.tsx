@@ -2,13 +2,14 @@ import { useState } from "react";
 import styles from "@/styles/Radio.module.css";
 
 export interface IRadio {
+  value: any;
   name: string;
   items: string[];
   onChange: (value: string) => void;
 }
 
-export default function Radio({ name, items, onChange }: IRadio) {
-  const [state, setState] = useState(items[0]);
+export default function Radio({ name, items, value, onChange }: IRadio) {
+  const [state, setState] = useState(value);
 
   const _onChange = (event: any) => {
     setState(event.target.value);

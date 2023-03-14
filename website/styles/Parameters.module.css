@@ -1,31 +1,4 @@
-.parameters {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 1rem;
-}
-
 .parameter {
   display: flex;
-  flex-direction: column;
-}
-
-.parameter > label {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-.parameter > div {
-  display: flex;
   gap: 0.5rem;
-}
-
-.parameter > div > input {
-  font-family: inherit;
-  background: var(--backround-2);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  font-size: 1rem;
 }

@@ -1,6 +1,14 @@
+import { IReport } from "@/hooks/useCO2";
 import styles from "@/styles/Statistics.module.css";
+import { formatBytes, formatCO2 } from "@/utility/formats";
 
-export default function Statistics({ style }: any) {
+export default function Statistics({
+  style,
+  report,
+}: {
+  style: any;
+  report: IReport;
+}) {
   return (
     <div className={`card ${styles.container}`} style={style}>
       <h2>Statistics</h2>
@@ -11,15 +19,15 @@ export default function Statistics({ style }: any) {
       <div className={styles.statistics}>
         <div>
           <label>CO2</label>
-          <div>0.40g</div>
+          <div>{formatCO2(report.co2) ?? "--"}</div>
         </div>
         <div>
           <label>CO2 intensity</label>
-          <div>43.9g/kWh</div>
+          <div>{formatCO2(report.co2_intensity) ?? "--"}/kWh</div>
         </div>
         <div>
           <label>Transfered size</label>
-          <div>4.8 MB</div>
+          <div>{formatBytes(report.bytes, "MB") ?? "--"}</div>
         </div>
       </div>
       <button className={styles.button}>

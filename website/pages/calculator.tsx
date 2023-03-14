@@ -3,13 +3,8 @@ import Menu from "@/components/menu";
 import styles from "@/styles/Calculator.module.css";
 import Parameters, { IOnChange, IState } from "@/components/parameters";
 import { useState } from "react";
-
-const getUnitMultiplier = (unit: string) => {
-  if (unit === "kB") return 1000;
-  if (unit === "MB") return 1000000;
-  if (unit === "GB") return 1000000000;
-  return 1;
-};
+import { bytesUnitDecimal, formatCO2 } from "@/utility/formats";
+import { sustainableWebDesign } from "@/utility/co2";
 
 export default function Calculator() {
   const [state, setState] = useState<IState>({
@@ -17,7 +12,7 @@ export default function Calculator() {
     bytes: 1000,
     country: "SE",
     returning: 25,
-    unit: "KB",
+    unit: "kB",
   });
 
   const onChange: IOnChange = (property: string, value: any) => {
@@ -28,11 +23,9 @@ export default function Calculator() {
   };
 
   const calculation = () => {
-    return (
-      ((state.views * (state.bytes * getUnitMultiplier(state.unit))) /
-        state.returning) *
-      0.0001
-    );
+    // TODO: apply intensity and returning users
+    const bytes = state.bytes * bytesUnitDecimal(state.unit);
+    return sustainableWebDesign.perByte(bytes) * state.views;
   };
 
   return (
@@ -55,7 +48,7 @@ export default function Calculator() {
           <div>
             Produces{" "}
             <span className="highlight">
-              {+calculation().toFixed(2)}kg of CO2
+              {formatCO2(calculation(), "kg")} of CO2
             </span>{" "}
             every year
           </div>
