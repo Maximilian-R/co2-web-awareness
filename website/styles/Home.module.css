@@ -10,3 +10,8 @@
   width: 100%;
   --progress-value-color: var(--color-1);
 }
+
+.error {
+  --progress-value-color: var(--error-color);
+  color: var(--error-color);
+}
