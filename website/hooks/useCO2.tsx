@@ -3,6 +3,18 @@ import { averageIntensity } from "@tgwf/co2";
 import { sustainableWebDesign } from "@/utility/co2";
 import { io } from "socket.io-client";
 
+export interface IResultEvent {
+  bytes: number;
+}
+
+export interface IStatusEvent {
+  status: number;
+}
+
+export interface IErrorEvent {
+  error: string;
+}
+
 export interface IReport {
   url: string;
   co2: number;
@@ -24,26 +36,23 @@ export default function useCO2(url: string) {
     const socket = io("http://localhost:3001");
     socket.emit("payload", url);
 
-    function onConnect() {
-      setError("");
-    }
+    const onConnect = () => setError("");
+    const onDisconnect = () => setIsGenerating(false);
+    const onConnectError = () => setError("Could not connect to the server");
+    const onStatusEvent = (event: IStatusEvent) => setStatus(event.status);
+    const onErrorEvent = (event: IErrorEvent) => setError(event.error);
 
-    function onDisconnect() {
-      setIsGenerating(false);
-    }
+    const onResultEvent = (event: IResultEvent) => {
+      const bytes = event.bytes;
 
-
-    function onResultEvent(value: any) {
-      const bytes = value.sumSize;
-      const gridIntensity = parseFloat(averageIntensity.data.SWE);
-      const options = {gridIntensity: {device :gridIntensity, network :gridIntensity, dataCenter: gridIntensity}}
-
-    function onConnectError() {
-      setError("Could not connect to the server");
-    }
-
-    function onResultEvent(body: any) {
-      const bytes = body.sumSize;
+      const intensity = parseFloat(averageIntensity.data.SWE);
+      const options = {
+        gridIntensity: {
+          device: intensity,
+          network: intensity,
+          dataCenter: intensity,
+        },
+      };
 
       setState({
         url: url,
@@ -54,30 +63,21 @@ export default function useCO2(url: string) {
       setError("");
       setStatus(100);
       socket.disconnect();
-    }
+    };
 
-    function onStatusEvent(body: any) {
-      setStatus(body.status);
-    }
-
-    function onErrorEvent(error: any){
-      console.log(error);
-      setError(error);
-    }
-
+    socket.on("connect", onConnect);
+    socket.on("connect_error", onConnectError);
+    socket.on("disconnect", onDisconnect);
     socket.on("error", onErrorEvent);
     socket.on("status", onStatusEvent);
-    socket.on("connect_error", onConnectError);
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
     socket.on("result", onResultEvent);
 
     return () => {
+      socket.off("connect", onConnect);
+      socket.off("connect_error", onConnectError);
+      socket.off("disconnect", onDisconnect);
       socket.off("error", onErrorEvent);
       socket.off("status", onStatusEvent);
-      socket.off("connect_error", onConnectError);
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
       socket.off("result", onResultEvent);
     };
   }, [url]);
