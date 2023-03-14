@@ -38,8 +38,8 @@ io.on('connection', (socket) => {
       console.log(sumSize);
       socket.emit('result', {sumSize});
     }
-    catch(e){
-      console.log(e);
+    catch(error){
+      socket.emit('error', error);
     }
   })
   socket.on('disconnect', () => {
