@@ -6,6 +6,7 @@
   --color-2: #ecd7c1;
   --color-3: #b7b8ea;
   --color-4: #e4afe6;
+  --error-color: #e18585;
   --icon-color: var(--text-color);
   --progress-value-color: var(--color-1);
   font-family: "Varela Round", sans-serif;

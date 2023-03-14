@@ -17,43 +17,51 @@ export default function useCO2(url: string) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!url) {
-      return;
-    }
+    if (!url) return;
 
+    setIsGenerating(true);
+    setError("");
     const socket = io("http://localhost:3001");
     socket.emit("payload", url);
 
     function onConnect() {
-      setIsGenerating(true);
+      setError("");
     }
 
     function onDisconnect() {
       setIsGenerating(false);
     }
 
-    function onResultEvent(value: any) {
-      const bytes = value.sumSize;
+    function onConnectError() {
+      setError("Could not connect to the server");
+    }
+
+    function onResultEvent(body: any) {
+      const bytes = body.sumSize;
       setState({
         url: url,
         co2: sustainableWebDesign.perByte(bytes),
         co2_intensity: parseFloat(averageIntensity.data.SWE),
         bytes: bytes,
       });
+      setError("");
+      setStatus(100);
       socket.disconnect();
     }
 
-    function onStatusEvent(value: any) {
-      setStatus(value.status);
+    function onStatusEvent(body: any) {
+      setStatus(body.status);
     }
 
     socket.on("status", onStatusEvent);
+    socket.on("connect_error", onConnectError);
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("result", onResultEvent);
 
     return () => {
       socket.off("status", onStatusEvent);
+      socket.off("connect_error", onConnectError);
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("result", onResultEvent);

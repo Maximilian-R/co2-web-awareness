@@ -24,7 +24,9 @@ export default function Home() {
       <main className={styles.main}>
         <Heading url={state?.url}></Heading>
         <ReportForm onChange={setUrl}></ReportForm>
-        {isGenerating && <Progressbar status={status}></Progressbar>}
+        {isGenerating && (
+          <Progressbar status={status} error={error}></Progressbar>
+        )}
         {state && <Report report={state}></Report>}
       </main>
     </>
@@ -103,11 +105,16 @@ function ReportForm({ onChange }: { onChange: (value: string) => void }) {
   );
 }
 
-export const Progressbar = ({ status }: any) => {
+export const Progressbar = ({ status, error }: any) => {
   return (
     <div className="card">
       <label>Generating... {Math.min(Math.max(status, 0), 100)}%</label>
-      <progress max="100" value={status} className={styles.progress}></progress>
+      <progress
+        max="100"
+        value={status}
+        className={`${styles.progress} ${error && styles.error}`}
+      ></progress>
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   );
 };
