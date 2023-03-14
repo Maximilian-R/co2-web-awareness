@@ -2,11 +2,13 @@ import Head from "next/head";
 import Menu from "@/components/menu";
 import styles from "@/styles/Calculator.module.css";
 import Parameters, { IOnChange, IState } from "@/components/parameters";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { bytesUnitDecimal, formatCO2 } from "@/utility/formats";
 import { sustainableWebDesign } from "@/utility/co2";
+import { useRouter } from "next/router";
 
 export default function Calculator() {
+  const router = useRouter();
   const [state, setState] = useState<IState>({
     views: 10000,
     bytes: 1000,
@@ -27,6 +29,10 @@ export default function Calculator() {
     const bytes = state.bytes * bytesUnitDecimal(state.unit);
     return sustainableWebDesign.perByte(bytes) * state.views;
   };
+
+  useEffect(() => {
+    setState((prev) => ({ ...prev, ...router.query }));
+  }, [router.query]);
 
   return (
     <>

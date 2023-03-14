@@ -1,6 +1,7 @@
 import { IReport } from "@/hooks/useCO2";
 import styles from "@/styles/Statistics.module.css";
 import { formatBytes, formatCO2 } from "@/utility/formats";
+import { useRouter } from "next/router";
 
 export default function Statistics({
   style,
@@ -9,6 +10,8 @@ export default function Statistics({
   style: any;
   report: IReport;
 }) {
+  const router = useRouter();
+
   return (
     <div className={`card ${styles.container}`} style={style}>
       <h2>Statistics</h2>
@@ -30,7 +33,18 @@ export default function Statistics({
           <div>{formatBytes(report.bytes, "MB") ?? "--"}</div>
         </div>
       </div>
-      <button className={styles.button}>
+      <button
+        className={styles.button}
+        onClick={() => {
+          router.push(
+            {
+              pathname: "/calculator",
+              query: { bytes: report.bytes, unit: "B" },
+            },
+            "/calculator"
+          );
+        }}
+      >
         Copy to calculator
         <i aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
