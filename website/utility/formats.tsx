@@ -12,7 +12,7 @@ export const formatBytes = (bytes: number, unit: BytesUnit = "B") => {
   if (unit === "kB") divider = 1000;
   if (unit === "MB") divider = 1000000;
   if (unit === "GB") divider = 1000000000;
-  return `${+bytes.toFixed(2) / divider}${unit}`;
+  return `${+(bytes / divider).toFixed(2)}${unit}`;
 };
 
 export const unitDecimal = (unit: Unit) => {
