@@ -1,57 +1,42 @@
-// import fs from 'fs';
-import lighthouse from 'lighthouse';
-import chromeLauncher from 'chrome-launcher';
-import express from 'express';
-import cors from 'cors';
-import log from 'lighthouse-logger';
-import { createServer } from 'http';
-import { Server } from 'socket.io'; //replaces (import socketIo from 'socket.io')
+import express from "express";
+import cors from "cors";
+import { createServer } from "http";
+import { Server } from "socket.io";
+import lighthouse from "./lighthouse.js";
 
+const port = 3001;
 const app = express();
-
-const httpServer = createServer(app);
-const io = new Server(httpServer, { cors: { origin: '*' } });
-
 app.use(express.json());
 app.use(cors());
+app.set("port", port);
 
-const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance'], port: chrome.port};
+const httpServer = createServer(app);
+httpServer.listen(app.get("port"), () => {
+  const port = httpServer.address().port;
+  console.log("Running on port:", port);
+});
 
+const io = new Server(httpServer, { cors: { origin: "*" } });
 
+io.on("connection", (socket) => {
+  console.log("Connection established");
 
-io.on('connection', (socket) => {
-  console.log('Connection established');
- 
-  socket.on('payload', async(payload) =>{
-    try{
-      let nr =0;
-      let sumSize = 0;
-      log.events.on('status', ()=>{
-        socket.emit('status', {status : nr++});
-      })
-      const runnerResult = await lighthouse(payload, options);
-      let newArray = runnerResult.lhr.audits["network-requests"].details.items;
-      newArray.forEach(element =>{
-        sumSize += element.transferSize
-      })
-      console.log(sumSize);
-      socket.emit('result', {sumSize});
+  socket.on("payload", async (payload) => {
+    try {
+      lighthouse.trackProgress(socket, () =>
+        socket.emit("status", { status: events })
+      );
+      const bytes = await lighthouse.totalBytes();
+      console.log("Total transfered bytes", bytes);
+      socket.emit("result", { bytes });
+    } catch (error) {
+      socket.emit("error", {
+        error: "Could not generate the report",
+      });
     }
-    catch(error){
-      socket.emit('error', error);
-    }
-  })
-  socket.on('disconnect', () => {
-    console.log('Disconnected');
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected");
   });
 });
-
-app.set('port', process.env.PORT || 3001);
-
-httpServer.listen(app.get('port'), function () {
-  var port = httpServer.address().port;
-  console.log('Running on : ', port);
-});
-
-
