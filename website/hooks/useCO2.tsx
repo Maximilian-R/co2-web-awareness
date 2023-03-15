@@ -47,15 +47,12 @@ export default function useCO2(
   const [error, setError] = useState("");
 
   useEffect(() => {
-    console.log("new options", options);
     if (
       !options.url ||
-      options.url === initialState?.url ||
-      options.intensity === initialState?.co2Intensity
+      (options.url === initialState?.url &&
+        options.intensity === initialState?.co2Intensity)
     )
       return;
-
-    console.log("Generate report");
 
     setState(undefined);
     setIsGenerating(true);
