@@ -10,7 +10,17 @@ export interface IReport {
 }
 
 export interface IResultEvent {
-  bytes: number;
+    ["total-byte-weight"]: number,
+    ["offscreen-images"]: number,
+    ["unused-css-rules"]: number,
+    ["unused-javascript"]:number,
+    ["modern-image-formats"]: number,
+    ["uses-optimized-images"]: number,
+    ["uses-text-compression"]: number,
+    ["uses-responsive-images"]: number,
+    ["efficient-animated-content"]: number,
+    ["duplicated-javascript"]: number,
+    ["legacy-javascript"]: number;
 }
 
 export interface IStatusEvent {
@@ -47,7 +57,8 @@ export default function useCO2(url: string, initialState: IReport | undefined) {
     };
 
     const onResultEvent = (event: IResultEvent) => {
-      const bytes = event.bytes;
+
+      const bytes = event["total-byte-weight"];
       const co2 = sustainableWebDesign.perByte(bytes, INTENSITY_SWE);
 
       setState({

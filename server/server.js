@@ -28,8 +28,9 @@ io.on("connection", (socket) => {
         socket.emit("status", { status })
       );
       const bytes = await lighthouse.totalBytes(url);
+      // const overallSavingsBytes = await lighthouse.savingsBytes(url);
       console.log("Total transfered bytes", bytes);
-      socket.emit("result", { bytes });
+      socket.emit("result",  bytes );
     } catch (error) {
       console.error(error);
       socket.emit("error", {
