@@ -6,7 +6,6 @@ import Statistics from "@/components/statistics";
 
 import OverallSavings from "@/components/overallsavings";
 
-
 import { useContext, useEffect, useState } from "react";
 import useCO2, { IOptions, IReport } from "@/hooks/useCO2";
 
@@ -48,11 +47,7 @@ export default function Home() {
           <Progressbar status={status} error={error}></Progressbar>
         )}
 
-         {state.report && <Report report={state.report}></Report>}
-        {state.report && <OverallStatistics report={state.report}></OverallStatistics>}
-
-       
-
+        {state.report && <Report report={state.report}></Report>}
       </main>
     </>
   );
@@ -90,17 +85,15 @@ function Report({ report }: { report: IReport }) {
         style={{ gridArea: "c" }}
         report={report}
       ></SystemSegements>
+      <OverallStatistics report={report}></OverallStatistics>
     </div>
   );
 }
 
-
 function OverallStatistics({ report }: { report: IReport }) {
   return (
-    <div>
-      <OverallSavings style={{ gridArea: "d" }} report={report}></OverallSavings>
-    </div>
-  )
+    <OverallSavings style={{ gridArea: "d" }} report={report}></OverallSavings>
+  );
 }
 
 export const Progressbar = ({
