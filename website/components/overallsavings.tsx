@@ -22,10 +22,10 @@ export default function OverallSavings({
   function TopThreeSavings(){
     return(
         saveTopThree.map((item)=>
-        <>
+        <div key={item[0]}>
             <label>{item[0]}</label>
             <div> {formatBytes(item[1], "MB")}</div>
-        </>
+        </div>
         )      
     )
   };

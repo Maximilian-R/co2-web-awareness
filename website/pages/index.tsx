@@ -7,8 +7,6 @@ import Statistics from "@/components/statistics";
 import OverallSavings from "@/components/overallsavings";
 
 
-import useCO2, { IReport, IResultEvent } from "@/hooks/useCO2";
-=======
 import { useContext, useEffect, useState } from "react";
 import useCO2, { IOptions, IReport } from "@/hooks/useCO2";
 
