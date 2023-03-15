@@ -45,7 +45,11 @@ export default function Statistics({
           router.push(
             {
               pathname: "/calculator",
-              query: { bytes: report.bytes, unit: "B" },
+              query: {
+                bytes: report.bytes,
+                unit: "B",
+                country: report.co2Intensity.member_state.value,
+              },
             },
             "/calculator"
           );

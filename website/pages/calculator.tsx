@@ -3,7 +3,7 @@ import Menu from "@/components/menu";
 import styles from "@/styles/Calculator.module.css";
 import Parameters, { IOnChange } from "@/components/parameters";
 import { useEffect, useState } from "react";
-import { formatCO2 } from "@/utility/formats";
+import { BytesUnit, formatCO2 } from "@/utility/formats";
 import { calculateCO2, IParameters } from "@/utility/co2";
 import { useRouter } from "next/router";
 import { INTENSITY_DATA_2021 } from "@/utility/intensity";
@@ -29,7 +29,17 @@ export default function Calculator() {
   };
 
   useEffect(() => {
-    setState((prev) => ({ ...prev, ...router.query }));
+    const parameters: Partial<IParameters> = {};
+
+    if (router.query.bytes)
+      parameters.bytes = parseFloat(router.query.bytes as string);
+    if (router.query.unit) parameters.unit = router.query.unit as BytesUnit;
+    if (router.query.country)
+      parameters.country = INTENSITY_DATA_2021.find(
+        (country) => country.member_state.value === router.query.country
+      );
+
+    setState((prev) => ({ ...prev, ...parameters }));
   }, [router.query]);
 
   return (
