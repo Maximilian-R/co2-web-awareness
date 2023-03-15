@@ -3,9 +3,10 @@ import Menu from "@/components/menu";
 import styles from "@/styles/Home.module.css";
 import SystemSegements from "@/components/system-segments";
 import Statistics from "@/components/statistics";
+import OverallSavings from "@/components/overallsavings";
 import { useContext, useEffect, useRef, useState } from "react";
 
-import useCO2, { IReport } from "@/hooks/useCO2";
+import useCO2, { IReport, IResultEvent } from "@/hooks/useCO2";
 import { formatCO2 } from "@/utility/formats";
 import { IState, StateContext } from "@/contexts/state-context";
 
@@ -39,6 +40,7 @@ export default function Home() {
           <Progressbar status={status} error={error}></Progressbar>
         )}
         {contextState && <Report report={contextState}></Report>}
+        {contextState && <OverallStatistics report={contextState}></OverallStatistics>}
       </main>
     </>
   );
@@ -79,6 +81,15 @@ function Report({ report }: { report: IReport }) {
     </div>
   );
 }
+
+function OverallStatistics({ report }: { report: IReport }) {
+  return (
+    <div>
+      <OverallSavings style={{ gridArea: "d" }} report={report}></OverallSavings>
+    </div>
+  )
+}
+
 
 function ReportForm({
   url,

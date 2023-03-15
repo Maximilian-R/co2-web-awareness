@@ -3,7 +3,8 @@
   gap: 1rem;
   grid-template-areas:
     "a a a"
-    "b b c";
+    "b b c"
+    "d d d";
 }
 
 .progress {
