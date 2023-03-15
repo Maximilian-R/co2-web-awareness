@@ -39,7 +39,7 @@ function Heading({ url }: { url?: string }) {
       {url ? (
         <>
           Report for:{" "}
-          <a href="seb.se" target="_blank">
+          <a href={url} target="_blank">
             {url}
           </a>
         </>
@@ -74,7 +74,7 @@ function ReportForm({ onChange }: { onChange: (value: string) => void }) {
   return (
     <div className="card" style={{ gridArea: "a" }}>
       <h2>Create a report</h2>
-      <p>Enter an url to calculate an estimation of it's carbon emission</p>
+      <p>Estimate your web page carbon footprint</p>
 
       <form
         onSubmit={(event) => {
@@ -90,7 +90,6 @@ function ReportForm({ onChange }: { onChange: (value: string) => void }) {
 
         <button
           type="button"
-          className={styles.button}
           onClick={() => onChange(inputElement.current.value)}
         >
           Generate

@@ -1,5 +1,6 @@
 import styles from "@/styles/Parameters.module.css";
 import { IParameters } from "@/utility/co2";
+import CountrySelector from "./country-selector";
 import Radio from "./radio";
 
 export interface IOnChange {
@@ -14,7 +15,7 @@ export default function Parameters({
   onChange: IOnChange;
 }) {
   return (
-    <form>
+    <form className="grid">
       <div>
         <div className="form-group">
           <label>Monthly views</label>
@@ -73,12 +74,12 @@ export default function Parameters({
         </div>
 
         <div className="form-group">
-          <label>Country</label>
+          <label>Country g/kWh</label>
           <div className={styles.parameter}>
-            <input
+            <CountrySelector
               value={state.country}
-              onChange={(event) => onChange("country", event.target.value)}
-            ></input>
+              onChange={(country) => onChange("country", country)}
+            ></CountrySelector>
           </div>
         </div>
       </div>

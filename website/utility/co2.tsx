@@ -1,5 +1,6 @@
 import { co2, averageIntensity } from "@tgwf/co2";
 import { BytesUnit, bytesUnitDecimal, unitDecimal } from "./formats";
+import { IIntensityCountry } from "./intensity";
 
 export const INTENSITY_SWE = parseFloat(averageIntensity.data.SWE);
 // const options = {
@@ -27,7 +28,7 @@ export interface IParameters {
   unit: BytesUnit;
   returningViewsPercentage: number;
   returningBytesPercentage: number;
-  country: string;
+  country: IIntensityCountry;
 }
 
 export const calculateCO2 = (parameters: IParameters) => {
@@ -41,10 +42,15 @@ export const calculateCO2 = (parameters: IParameters) => {
     firstBytes * (parameters.returningBytesPercentage / 100);
 
   const firstCO2 =
-    sustainableWebDesign.perByte(firstBytes, INTENSITY_SWE) * firstViews;
+    sustainableWebDesign.perByte(
+      firstBytes,
+      parameters.country.greenhouse_gas_emission_ghg_intensity.value
+    ) * firstViews;
   const returningCO2 =
-    sustainableWebDesign.perByte(returningBytes, INTENSITY_SWE) *
-    returningViews;
+    sustainableWebDesign.perByte(
+      returningBytes,
+      parameters.country.greenhouse_gas_emission_ghg_intensity.value
+    ) * returningViews;
 
   return firstCO2 + returningCO2;
 };

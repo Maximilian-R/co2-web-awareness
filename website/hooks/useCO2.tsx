@@ -30,8 +30,10 @@ export default function useCO2(url: string) {
   useEffect(() => {
     if (!url) return;
 
+    setState(undefined);
     setIsGenerating(true);
     setError("");
+    setStatus(0);
     const socket = io("http://localhost:3001");
     socket.emit("payload", url);
 

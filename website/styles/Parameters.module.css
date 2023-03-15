@@ -2,3 +2,7 @@
   display: flex;
   gap: 0.5rem;
 }
+
+.parameter > :first-child {
+  flex-grow: 1;
+}

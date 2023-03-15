@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { formatCO2 } from "@/utility/formats";
 import { calculateCO2, IParameters } from "@/utility/co2";
 import { useRouter } from "next/router";
+import { INTENSITY_DATA_2021 } from "@/utility/intensity";
 
 const defaultState: IParameters = {
   views: 10000,
   bytes: 1000,
-  country: "SE",
+  country: INTENSITY_DATA_2021[0],
   returningViewsPercentage: 25,
   returningBytesPercentage: 50,
   unit: "kB",

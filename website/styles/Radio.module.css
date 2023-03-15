@@ -5,7 +5,7 @@
 
 .radio {
   box-sizing: border-box;
-  width: 2rem;
+  width: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +16,7 @@
   height: 100%;
   margin: 0;
   border-radius: 0.5rem;
-  background-color: var(--backround-2);
+  border: var(--form-group-border);
   appearance: none;
   cursor: pointer;
 }
@@ -25,7 +25,7 @@
 }
 
 .radio input[type="radio"]:checked {
-  background-color: var(--color-3);
+  background-color: var(--form-group-border-color);
 }
 
 .radio input[type="radio"]:checked + span {
