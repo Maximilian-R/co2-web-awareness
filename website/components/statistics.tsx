@@ -27,7 +27,12 @@ export default function Statistics({
         </div>
         <div>
           <label>CO2 intensity</label>
-          <div>{formatCO2(report.co2Intensity) ?? "--"}/kWh</div>
+          <div>
+            {formatCO2(
+              report.co2Intensity.greenhouse_gas_emission_ghg_intensity.value
+            ) ?? "--"}
+            /kWh
+          </div>
         </div>
         <div>
           <label>Transfered size</label>

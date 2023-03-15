@@ -1,26 +1,27 @@
 import { useEffect, useState } from "react";
-import { sustainableWebDesign, INTENSITY_SWE } from "@/utility/co2";
+import { sustainableWebDesign } from "@/utility/co2";
 import { io } from "socket.io-client";
+import { IIntensityCountry } from "@/utility/intensity";
 
 export interface IReport {
   url: string;
   co2: number;
-  co2Intensity: number;
+  co2Intensity: IIntensityCountry;
   bytes: number;
 }
 
 export interface IResultEvent {
-    ["total-byte-weight"]: number,
-    ["offscreen-images"]: number,
-    ["unused-css-rules"]: number,
-    ["unused-javascript"]:number,
-    ["modern-image-formats"]: number,
-    ["uses-optimized-images"]: number,
-    ["uses-text-compression"]: number,
-    ["uses-responsive-images"]: number,
-    ["efficient-animated-content"]: number,
-    ["duplicated-javascript"]: number,
-    ["legacy-javascript"]: number;
+  ["total-byte-weight"]: number;
+  ["offscreen-images"]: number;
+  ["unused-css-rules"]: number;
+  ["unused-javascript"]: number;
+  ["modern-image-formats"]: number;
+  ["uses-optimized-images"]: number;
+  ["uses-text-compression"]: number;
+  ["uses-responsive-images"]: number;
+  ["efficient-animated-content"]: number;
+  ["duplicated-javascript"]: number;
+  ["legacy-javascript"]: number;
 }
 
 export interface IStatusEvent {
@@ -31,21 +32,37 @@ export interface IErrorEvent {
   error: string;
 }
 
-export default function useCO2(url: string, initialState: IReport | undefined) {
+export interface IOptions {
+  url: string;
+  intensity: IIntensityCountry;
+}
+
+export default function useCO2(
+  options: IOptions,
+  initialState: IReport | undefined
+) {
   const [state, setState] = useState<IReport | undefined>(initialState);
   const [status, setStatus] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!url || url === initialState?.url) return;
+    console.log("new options", options);
+    if (
+      !options.url ||
+      options.url === initialState?.url ||
+      options.intensity === initialState?.co2Intensity
+    )
+      return;
+
+    console.log("Generate report");
 
     setState(undefined);
     setIsGenerating(true);
     setError("");
     setStatus(0);
     const socket = io("http://localhost:3001");
-    socket.emit("payload", url);
+    socket.emit("payload", options.url);
 
     const onConnect = () => setError("");
     const onDisconnect = () => setIsGenerating(false);
@@ -57,14 +74,16 @@ export default function useCO2(url: string, initialState: IReport | undefined) {
     };
 
     const onResultEvent = (event: IResultEvent) => {
-
       const bytes = event["total-byte-weight"];
-      const co2 = sustainableWebDesign.perByte(bytes, INTENSITY_SWE);
+      const co2 = sustainableWebDesign.perByte(
+        bytes,
+        options.intensity.greenhouse_gas_emission_ghg_intensity.value
+      );
 
       setState({
-        url: url,
+        url: options.url,
         co2: co2,
-        co2Intensity: INTENSITY_SWE,
+        co2Intensity: options.intensity,
         bytes: bytes,
       });
       setError("");
@@ -87,7 +106,7 @@ export default function useCO2(url: string, initialState: IReport | undefined) {
       socket.off("status", onStatusEvent);
       socket.off("result", onResultEvent);
     };
-  }, [url]);
+  }, [options]);
 
   return {
     state,
