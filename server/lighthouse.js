@@ -5,21 +5,21 @@ import chromeLauncher from "chrome-launcher";
 const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
 
 const options = {
-  logLevel: "info",
+  logLevel: "silent",
   output: "json",
   onlyCategories: ["performance"],
   port: chrome.port,
 };
 
-const generateReport = async () => {
-  return lighthouse(payload, options);
+const generateReport = async (url) => {
+  return lighthouse(url, options);
 };
 
-const totalBytes = async () => {
-  const report = await generateReport();
+const totalBytes = async (url) => {
+  const report = await generateReport(url);
   const requests = report.lhr.audits["network-requests"].details.items;
   return requests.reduce((sum, request) => {
-    sum += request.transferSize;
+    return sum + request.transferSize;
   }, 0);
 };
 

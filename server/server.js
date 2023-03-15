@@ -21,15 +21,17 @@ const io = new Server(httpServer, { cors: { origin: "*" } });
 io.on("connection", (socket) => {
   console.log("Connection established");
 
-  socket.on("payload", async (payload) => {
+  socket.on("payload", async (url) => {
+    console.log("On payload:", url);
     try {
-      lighthouse.trackProgress(socket, () =>
-        socket.emit("status", { status: events })
+      lighthouse.trackProgress(socket, (status) =>
+        socket.emit("status", { status })
       );
-      const bytes = await lighthouse.totalBytes();
+      const bytes = await lighthouse.totalBytes(url);
       console.log("Total transfered bytes", bytes);
       socket.emit("result", { bytes });
     } catch (error) {
+      console.error(error);
       socket.emit("error", {
         error: "Could not generate the report",
       });
