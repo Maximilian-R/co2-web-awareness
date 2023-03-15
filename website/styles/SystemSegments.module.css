@@ -16,14 +16,14 @@
 }
 
 .color1 {
-  --progress-value-color: var(--color-1);
+  --progress-value-color: var(--backround-1);
 }
 .color2 {
-  --progress-value-color: var(--color-2);
+  --progress-value-color: var(--backround-1);
 }
 .color3 {
-  --progress-value-color: var(--color-3);
+  --progress-value-color: var(--backround-1);
 }
 .color4 {
-  --progress-value-color: var(--color-4);
+  --progress-value-color: var(--backround-1);
 }

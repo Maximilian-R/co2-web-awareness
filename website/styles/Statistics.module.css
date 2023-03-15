@@ -9,12 +9,6 @@
   gap: 1rem;
 }
 
-.statistics > div {
-  padding: 0.5rem;
-  background: var(--backround-2);
-  border-radius: 0.5rem;
-}
-
 .statistics > div > div {
   font-weight: 700;
 }

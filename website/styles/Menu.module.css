@@ -7,7 +7,7 @@
 }
 
 .brand {
-  background: var(--backround-1);
+  background: var(--card-1-background);
   padding: 1rem;
   font-size: 1rem;
   font-weight: 700;
@@ -23,7 +23,7 @@
 
 .ul li {
   padding: 1rem;
-  background: var(--backround-1);
+  background: var(--card-1-background);
 }
 
 .ul li:last-child {

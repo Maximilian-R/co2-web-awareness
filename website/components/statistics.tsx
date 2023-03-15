@@ -21,11 +21,11 @@ export default function Statistics({
         results:
       </p>
       <div className={styles.statistics}>
-        <div>
+        <div className="card">
           <label>CO2</label>
           <div>{formatCO2(report.co2) ?? "--"}</div>
         </div>
-        <div>
+        <div className="card">
           <label>CO2 intensity</label>
           <div>
             {formatCO2(
@@ -34,7 +34,7 @@ export default function Statistics({
             /kWh
           </div>
         </div>
-        <div>
+        <div className="card">
           <label>Transfered size</label>
           <div>{formatBytes(report.bytes, "MB") ?? "--"}</div>
         </div>
