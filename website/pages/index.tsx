@@ -3,8 +3,15 @@ import Menu from "@/components/menu";
 import styles from "@/styles/Home.module.css";
 import SystemSegements from "@/components/system-segments";
 import Statistics from "@/components/statistics";
+
+import OverallSavings from "@/components/overallsavings";
+
+
+import useCO2, { IReport, IResultEvent } from "@/hooks/useCO2";
+=======
 import { useContext, useEffect, useState } from "react";
 import useCO2, { IOptions, IReport } from "@/hooks/useCO2";
+
 import { formatCO2 } from "@/utility/formats";
 import { StateContext } from "@/contexts/state-context";
 import ReportForm from "@/components/report-form";
@@ -42,7 +49,12 @@ export default function Home() {
         {isGenerating && (
           <Progressbar status={status} error={error}></Progressbar>
         )}
-        {state.report && <Report report={state.report}></Report>}
+
+         {state.report && <Report report={state.report}></Report>}
+        {state.report && <OverallStatistics report={state.report}></OverallStatistics>}
+
+       
+
       </main>
     </>
   );
@@ -82,6 +94,15 @@ function Report({ report }: { report: IReport }) {
       ></SystemSegements>
     </div>
   );
+}
+
+
+function OverallStatistics({ report }: { report: IReport }) {
+  return (
+    <div>
+      <OverallSavings style={{ gridArea: "d" }} report={report}></OverallSavings>
+    </div>
+  )
 }
 
 export const Progressbar = ({

@@ -8,6 +8,18 @@ export interface IReport {
   co2: number;
   co2Intensity: IIntensityCountry;
   bytes: number;
+  overallsavings: {
+    ["offscreen-images"]: number,
+    ["unused-css-rules"]: number,
+    ["unused-javascript"]:number,
+    ["modern-image-formats"]: number,
+    ["uses-optimized-images"]: number,
+    ["uses-text-compression"]: number,
+    ["uses-responsive-images"]: number,
+    ["efficient-animated-content"]: number,
+    ["duplicated-javascript"]: number,
+    ["legacy-javascript"]: number;
+};
 }
 
 export interface IResultEvent {
@@ -72,17 +84,32 @@ export default function useCO2(
 
     const onResultEvent = (event: IResultEvent) => {
       const bytes = event["total-byte-weight"];
+
       const co2 = sustainableWebDesign.perByte(
         bytes,
         options.intensity.greenhouse_gas_emission_ghg_intensity.value
       );
+
 
       setState({
         url: options.url,
         co2: co2,
         co2Intensity: options.intensity,
         bytes: bytes,
+        overallsavings: {
+    ["offscreen-images"]: event["offscreen-images"],
+    ["unused-css-rules"]: event["unused-css-rules"],
+    ["unused-javascript"]:event["unused-javascript"],
+    ["modern-image-formats"]: event["modern-image-formats"],
+    ["uses-optimized-images"]: event["uses-optimized-images"],
+    ["uses-text-compression"]: event["uses-text-compression"],
+    ["uses-responsive-images"]: event["uses-responsive-images"],
+    ["efficient-animated-content"]: event["efficient-animated-content"],
+    ["duplicated-javascript"]: event["duplicated-javascript"],
+    ["legacy-javascript"]: event["legacy-javascript"],
+},
       });
+
       setError("");
       setStatus(100);
       socket.disconnect();
