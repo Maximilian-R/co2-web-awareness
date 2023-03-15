@@ -21,14 +21,14 @@ export interface IErrorEvent {
   error: string;
 }
 
-export default function useCO2(url: string) {
-  const [state, setState] = useState<IReport>();
+export default function useCO2(url: string, initialState: IReport | undefined) {
+  const [state, setState] = useState<IReport | undefined>(initialState);
   const [status, setStatus] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!url) return;
+    if (!url || url === initialState?.url) return;
 
     setState(undefined);
     setIsGenerating(true);
@@ -41,7 +41,10 @@ export default function useCO2(url: string) {
     const onDisconnect = () => setIsGenerating(false);
     const onConnectError = () => setError("Could not connect to the server");
     const onStatusEvent = (event: IStatusEvent) => setStatus(event.status);
-    const onErrorEvent = (event: IErrorEvent) => setError(event.error);
+    const onErrorEvent = (event: IErrorEvent) => {
+      setError(event.error);
+      setState(undefined);
+    };
 
     const onResultEvent = (event: IResultEvent) => {
       const bytes = event.bytes;

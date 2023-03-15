@@ -3,14 +3,21 @@ import Menu from "@/components/menu";
 import styles from "@/styles/Home.module.css";
 import SystemSegements from "@/components/system-segments";
 import Statistics from "@/components/statistics";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import useCO2, { IReport } from "@/hooks/useCO2";
 import { formatCO2 } from "@/utility/formats";
+import { IState, StateContext } from "@/contexts/state-context";
 
 export default function Home() {
-  const [url, setUrl] = useState<string>("");
-  const { state, status, isGenerating, error } = useCO2(url);
+  const { state: contextState, setState: setContextState } =
+    useContext(StateContext);
+  const [url, setUrl] = useState<string>(contextState?.url ?? "");
+  const { state, status, isGenerating, error } = useCO2(url, contextState);
+
+  useEffect(() => {
+    setContextState(state);
+  }, [state, setContextState]);
 
   return (
     <>
@@ -22,12 +29,16 @@ export default function Home() {
       </Head>
       <Menu></Menu>
       <main className={styles.main}>
-        <Heading url={state?.url}></Heading>
-        <ReportForm isLoading={isGenerating} onChange={setUrl}></ReportForm>
+        <Heading url={contextState?.url}></Heading>
+        <ReportForm
+          url={url}
+          isLoading={isGenerating}
+          onChange={setUrl}
+        ></ReportForm>
         {isGenerating && (
           <Progressbar status={status} error={error}></Progressbar>
         )}
-        {state && <Report report={state}></Report>}
+        {contextState && <Report report={contextState}></Report>}
       </main>
     </>
   );
@@ -70,13 +81,16 @@ function Report({ report }: { report: IReport }) {
 }
 
 function ReportForm({
+  url,
   isLoading,
   onChange,
 }: {
+  url: string;
   isLoading: boolean;
   onChange: (value: string) => void;
 }) {
-  const inputElement = useRef<any>();
+  const [_url, _setUrl] = useState<string>(url);
+
   return (
     <div className="card" style={{ gridArea: "a" }}>
       <h2>Create a report</h2>
@@ -85,13 +99,16 @@ function ReportForm({
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          onChange(inputElement.current.value);
+          onChange(_url);
         }}
       >
         <div>
           <div className="form-group">
             <label>Url</label>
-            <input ref={inputElement}></input>
+            <input
+              value={_url}
+              onChange={(event) => _setUrl(event.target.value)}
+            ></input>
           </div>
         </div>
 
