@@ -54,3 +54,8 @@ export const calculateCO2 = (parameters: IParameters) => {
 
   return firstCO2 + returningCO2;
 };
+
+export const calculateCO2Driving = (grams: number) => {
+  const co2PerKm = 120;
+  return grams / co2PerKm;
+};

@@ -4,7 +4,7 @@ import styles from "@/styles/Calculator.module.css";
 import Parameters, { IOnChange } from "@/components/parameters";
 import { useEffect, useState } from "react";
 import { BytesUnit, formatCO2 } from "@/utility/formats";
-import { calculateCO2, IParameters } from "@/utility/co2";
+import { calculateCO2, calculateCO2Driving, IParameters } from "@/utility/co2";
 import { useRouter } from "next/router";
 import { INTENSITY_DATA_2021 } from "@/utility/intensity";
 
@@ -42,6 +42,8 @@ export default function Calculator() {
     setState((prev) => ({ ...prev, ...parameters }));
   }, [router.query]);
 
+  const co2 = calculateCO2(state);
+
   return (
     <>
       <Head>
@@ -61,10 +63,16 @@ export default function Calculator() {
         <div className="card">
           <div>
             Produces{" "}
-            <span className="highlight">
-              {formatCO2(calculateCO2(state), "kg")} of CO2
-            </span>{" "}
+            <span className="highlight">{formatCO2(co2, "kg")} of CO2</span>{" "}
             every year
+          </div>
+        </div>
+        <div className="card">
+          <div>
+            That is similar to driving a petrol car for{" "}
+            <span className="highlight">
+              {+calculateCO2Driving(co2).toFixed(2)}km
+            </span>{" "}
           </div>
         </div>
       </main>
