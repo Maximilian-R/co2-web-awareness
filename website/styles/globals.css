@@ -162,3 +162,9 @@ button i {
   width: 1rem;
   fill: var(--backround-1);
 }
+
+button:disabled,
+button[disabled] {
+  background: var(--backround-2);
+  cursor: pointer;
+}

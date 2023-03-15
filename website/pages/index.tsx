@@ -23,7 +23,7 @@ export default function Home() {
       <Menu></Menu>
       <main className={styles.main}>
         <Heading url={state?.url}></Heading>
-        <ReportForm onChange={setUrl}></ReportForm>
+        <ReportForm isLoading={isGenerating} onChange={setUrl}></ReportForm>
         {isGenerating && (
           <Progressbar status={status} error={error}></Progressbar>
         )}
@@ -69,7 +69,13 @@ function Report({ report }: { report: IReport }) {
   );
 }
 
-function ReportForm({ onChange }: { onChange: (value: string) => void }) {
+function ReportForm({
+  isLoading,
+  onChange,
+}: {
+  isLoading: boolean;
+  onChange: (value: string) => void;
+}) {
   const inputElement = useRef<any>();
   return (
     <div className="card" style={{ gridArea: "a" }}>
@@ -79,6 +85,7 @@ function ReportForm({ onChange }: { onChange: (value: string) => void }) {
       <form
         onSubmit={(event) => {
           event.preventDefault();
+          onChange(inputElement.current.value);
         }}
       >
         <div>
@@ -88,10 +95,7 @@ function ReportForm({ onChange }: { onChange: (value: string) => void }) {
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => onChange(inputElement.current.value)}
-        >
+        <button type="submit" disabled={isLoading}>
           Generate
           <i aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
