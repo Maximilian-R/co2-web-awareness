@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { averageIntensity } from "@tgwf/co2";
-import { sustainableWebDesign } from "@/utility/co2";
+import { sustainableWebDesign, INTENSITY_SWE } from "@/utility/co2";
 import { io } from "socket.io-client";
 
 export interface IReport {
@@ -44,21 +43,12 @@ export default function useCO2(url: string) {
 
     const onResultEvent = (event: IResultEvent) => {
       const bytes = event.bytes;
-
-      const intensity = parseFloat(averageIntensity.data.SWE);
-      const options = {
-        gridIntensity: {
-          device: intensity,
-          network: intensity,
-          dataCenter: intensity,
-        },
-      };
-      const trace = sustainableWebDesign.perByteTrace(bytes, false, options);
+      const co2 = sustainableWebDesign.perByte(bytes, INTENSITY_SWE);
 
       setState({
         url: url,
-        co2: trace.co2,
-        co2Intensity: parseFloat(averageIntensity.data.SWE),
+        co2: co2,
+        co2Intensity: INTENSITY_SWE,
         bytes: bytes,
       });
       setError("");
