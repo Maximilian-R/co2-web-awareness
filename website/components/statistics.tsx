@@ -27,7 +27,12 @@ export default function Statistics({
         </div>
         <div>
           <label>CO2 intensity</label>
-          <div>{formatCO2(report.co2Intensity) ?? "--"}/kWh</div>
+          <div>
+            {formatCO2(
+              report.co2Intensity.greenhouse_gas_emission_ghg_intensity.value
+            ) ?? "--"}
+            /kWh
+          </div>
         </div>
         <div>
           <label>Transfered size</label>
@@ -40,7 +45,11 @@ export default function Statistics({
           router.push(
             {
               pathname: "/calculator",
-              query: { bytes: report.bytes, unit: "B" },
+              query: {
+                bytes: report.bytes,
+                unit: "B",
+                country: report.co2Intensity.member_state.value,
+              },
             },
             "/calculator"
           );
