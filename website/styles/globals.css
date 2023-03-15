@@ -122,6 +122,15 @@ input {
   flex-direction: column;
 }
 
+.form-group > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-group > div > :first-child {
+  flex-grow: 1;
+}
+
 form {
   display: flex;
   flex-direction: column;

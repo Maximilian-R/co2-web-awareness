@@ -61,7 +61,7 @@ export default function Parameters({
 
         <div className="form-group">
           <label>Bytes per returning view %</label>
-          <div className={styles.parameter}>
+          <div>
             <input
               type="number"
               max="100"
@@ -75,7 +75,7 @@ export default function Parameters({
 
         <div className="form-group">
           <label>Country g/kWh</label>
-          <div className={styles.parameter}>
+          <div>
             <CountrySelector
               value={state.country}
               onChange={(country) => onChange("country", country)}

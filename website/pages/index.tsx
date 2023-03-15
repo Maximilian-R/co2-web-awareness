@@ -3,22 +3,30 @@ import Menu from "@/components/menu";
 import styles from "@/styles/Home.module.css";
 import SystemSegements from "@/components/system-segments";
 import Statistics from "@/components/statistics";
+
 import OverallSavings from "@/components/overallsavings";
 import { useContext, useEffect, useRef, useState } from "react";
 
-import useCO2, { IReport, IResultEvent } from "@/hooks/useCO2";
+
+import useCO2, { IOptions, IReport } from "@/hooks/useCO2";
+
 import { formatCO2 } from "@/utility/formats";
-import { IState, StateContext } from "@/contexts/state-context";
+import { StateContext } from "@/contexts/state-context";
+import ReportForm from "@/components/report-form";
 
 export default function Home() {
-  const { state: contextState, setState: setContextState } =
-    useContext(StateContext);
-  const [url, setUrl] = useState<string>(contextState?.url ?? "");
-  const { state, status, isGenerating, error } = useCO2(url, contextState);
+  const { state, setState } = useContext(StateContext);
+  const [options, setOptions] = useState<IOptions>(state.options);
+  const {
+    state: report,
+    status,
+    isGenerating,
+    error,
+  } = useCO2(options, state?.report);
 
   useEffect(() => {
-    setContextState(state);
-  }, [state, setContextState]);
+    setState({ options, report });
+  }, [options, report, setState]);
 
   return (
     <>
@@ -30,17 +38,19 @@ export default function Home() {
       </Head>
       <Menu></Menu>
       <main className={styles.main}>
-        <Heading url={contextState?.url}></Heading>
+        <Heading url={state?.report?.url}></Heading>
         <ReportForm
-          url={url}
+          options={options}
           isLoading={isGenerating}
-          onChange={setUrl}
+          onChange={setOptions}
         ></ReportForm>
         {isGenerating && (
           <Progressbar status={status} error={error}></Progressbar>
         )}
-        {contextState && <Report report={contextState}></Report>}
-        {contextState && <OverallStatistics report={contextState}></OverallStatistics>}
+        
+        {state.report && <OverallStatistics report={state.report}></OverallStatistics>}
+        {state.report && <Report report={state.report}></Report>}
+
       </main>
     </>
   );
@@ -81,6 +91,7 @@ function Report({ report }: { report: IReport }) {
     </div>
   );
 }
+
 
 function OverallStatistics({ report }: { report: IReport }) {
   return (
@@ -135,6 +146,7 @@ function ReportForm({
     </div>
   );
 }
+
 
 export const Progressbar = ({
   status,
