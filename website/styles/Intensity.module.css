@@ -1,0 +1,9 @@
+.barchart {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 2rem;
+}
+
+.bar {
+  background-color: var(--color-1);
+}
