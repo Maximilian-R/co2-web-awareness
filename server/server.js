@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
       );
       const bytes = await lighthouse.totalBytes(url);
       // const overallSavingsBytes = await lighthouse.savingsBytes(url);
-      console.log("Total transfered bytes", bytes);
+      // console.log("Total transfered bytes", bytes);
       socket.emit("result",  bytes );
     } catch (error) {
       console.error(error);
