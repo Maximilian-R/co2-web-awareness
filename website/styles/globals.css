@@ -82,7 +82,6 @@ h1 {
 .card select,
 .card button {
   background: var(--card-2-background);
-  box-shadow: none;
   backdrop-filter: var(--card-filter);
   -webkit-backdrop-filter: var(--card-filter);
   border: var(--card-border);
@@ -202,4 +201,9 @@ button:disabled,
 button[disabled] {
   background: var(--color-dark);
   cursor: pointer;
+}
+
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0px 4px var(--color-1);
 }
