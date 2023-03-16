@@ -14,18 +14,23 @@ export default function OverallSavings({
   const router = useRouter();
 
   const saveTopThree = useMemo(() => {
+    console.log('allsavings', report.overallsavings);
     let sortSavings = Object.entries(report.overallsavings)
-      .sort((a, b) => b[1] - a[1])
+      .sort((a, b) => b[1].details.overallSavingsBytes - a[1].details.overallSavingsBytes)
       .slice(0, 3);
-    console.log(sortSavings);
+    console.log('sortSavings', sortSavings);
     return sortSavings;
-  }, [report]);
+  }, [report]); 
+
+  
 
   function TopThreeSavings() {
     return saveTopThree.map((item) => (
       <div key={item[0]} className="card">
         <label>{item[0]}</label>
-        <div> {formatBytes(item[1], "MB")}</div>
+        <div> {formatBytes(item[1].details.overallSavingsBytes, "MB")}</div>
+        <span>Info:</span>
+        <span> {item[1].description}</span>
       </div>
     ));
   }
