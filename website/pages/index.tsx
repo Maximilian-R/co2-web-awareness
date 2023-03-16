@@ -43,7 +43,7 @@ export default function Home() {
           isLoading={isGenerating}
           onChange={setOptions}
         ></ReportForm>
-        {isGenerating && (
+        {(isGenerating || error) && (
           <Progressbar status={status} error={error}></Progressbar>
         )}
 
@@ -111,7 +111,7 @@ export const Progressbar = ({
         value={status}
         className={`${styles.progress} ${error && styles.error}`}
       ></progress>
-      {error && <p className={styles.error}>{error}</p>}
+      {error && <p>{error}</p>}
     </div>
   );
 };

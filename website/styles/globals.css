@@ -3,12 +3,11 @@
   --backround-2: #dad8e3;
 
   --text-color: #fff;
-  /* --text-color: #3b3b3b; */
   --color-1: #3cc285;
   --color-2: #ffd151;
-  --color-3: #51d1ff;
-  --color-4: #ff51c8;
-  --error-color: #e18585;
+  /* --color-3: #51d1ff; */
+  /* --color-4: #ff51c8; */
+  --error-color: #c23c5b;
   --icon-color: var(--text-color);
   --progress-value-color: var(--color-1);
   font-family: "Varela Round", sans-serif;
@@ -17,7 +16,8 @@
 
   --card-1-background: rgba(255, 255, 255, 0.25);
   --card-2-background: rgba(255, 255, 255, 0);
-  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+  --card-1-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+  --card-2-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.15);
   --card-border: 1px solid rgba(255, 255, 255, 0.18);
   --card-filter: blur(4px);
 }
@@ -68,7 +68,7 @@ h1 {
 
 .card {
   background: var(--card-1-background);
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--card-1-shadow);
   backdrop-filter: var(--card-filter);
   -webkit-backdrop-filter: var(--card-filter);
   border: var(--card-border);
@@ -87,6 +87,10 @@ h1 {
   border: var(--card-border);
   padding: 0.5rem;
   color: var(--text-color);
+}
+
+.card .card {
+  box-shadow: var(--card-2-shadow);
 }
 
 .card h2 {
@@ -128,6 +132,10 @@ select {
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: 1rem;
+}
+
+select option {
+  color: black;
 }
 
 input {
@@ -201,6 +209,7 @@ button:disabled,
 button[disabled] {
   background: var(--color-dark);
   cursor: pointer;
+  border: 1px solid transparent;
 }
 
 *:focus-visible {

@@ -74,7 +74,7 @@ export default function Parameters({
         </div>
 
         <div className="form-group">
-          <label>Country g/kWh</label>
+          <label>Country - CO2g/kWh</label>
           <div>
             <CountrySelector
               value={state.country}
