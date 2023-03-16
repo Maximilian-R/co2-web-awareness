@@ -9,31 +9,31 @@ export interface IReport {
   co2Intensity: IIntensityCountry;
   bytes: number;
   overallsavings: {
-    ["offscreen-images"]: number,
-    ["unused-css-rules"]: number,
-    ["unused-javascript"]:number,
-    ["modern-image-formats"]: number,
-    ["uses-optimized-images"]: number,
-    ["uses-text-compression"]: number,
-    ["uses-responsive-images"]: number,
-    ["efficient-animated-content"]: number,
-    ["duplicated-javascript"]: number,
-    ["legacy-javascript"]: number;
+    ["offscreen-images"]: any,
+    ["unused-css-rules"]: any,
+    ["unused-javascript"]:any,
+    ["modern-image-formats"]: any,
+    ["uses-optimized-images"]: any,
+    ["uses-text-compression"]: any,
+    ["uses-responsive-images"]:any,
+    ["efficient-animated-content"]: any,
+    ["duplicated-javascript"]: any,
+    ["legacy-javascript"]: any;
 };
 }
 
 export interface IResultEvent {
-  ["total-byte-weight"]: number;
-  ["offscreen-images"]: number;
-  ["unused-css-rules"]: number;
-  ["unused-javascript"]: number;
-  ["modern-image-formats"]: number;
-  ["uses-optimized-images"]: number;
-  ["uses-text-compression"]: number;
-  ["uses-responsive-images"]: number;
-  ["efficient-animated-content"]: number;
-  ["duplicated-javascript"]: number;
-  ["legacy-javascript"]: number;
+  ["total-byte-weight"]: {numericValue: number};
+  ["offscreen-images"]: {};
+  ["unused-css-rules"]: {};
+  ["unused-javascript"]: {};
+  ["modern-image-formats"]: {};
+  ["uses-optimized-images"]: {};
+  ["uses-text-compression"]: {};
+  ["uses-responsive-images"]: {};
+  ["efficient-animated-content"]: {};
+  ["duplicated-javascript"]: {};
+  ["legacy-javascript"]: {};
 }
 
 export interface IStatusEvent {
@@ -47,6 +47,10 @@ export interface IErrorEvent {
 export interface IOptions {
   url: string;
   intensity: IIntensityCountry;
+}
+
+export interface ILighthouse {
+  
 }
 
 export default function useCO2(
@@ -83,7 +87,9 @@ export default function useCO2(
     };
 
     const onResultEvent = (event: IResultEvent) => {
-      const bytes = event["total-byte-weight"];
+
+      console.log('event',event)
+      const bytes = event["total-byte-weight"].numericValue;
 
       const co2 = sustainableWebDesign.perByte(
         bytes,
