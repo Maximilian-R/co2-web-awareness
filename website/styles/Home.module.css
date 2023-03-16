@@ -16,5 +16,4 @@
 
 .error {
   --progress-value-color: var(--error-color);
-  color: var(--error-color);
 }

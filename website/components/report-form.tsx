@@ -38,7 +38,7 @@ export default function ReportForm({
             ></input>
           </div>
           <div className="form-group">
-            <label>Country g/kWh</label>
+            <label>Country - CO2g/kWh</label>
             <div>
               <CountrySelector
                 value={intensity}
