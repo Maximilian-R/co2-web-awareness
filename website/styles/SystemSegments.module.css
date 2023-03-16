@@ -11,6 +11,11 @@
   align-items: baseline;
 }
 
+.segment label {
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
 .value {
   font-weight: 700;
 }

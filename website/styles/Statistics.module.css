@@ -10,11 +10,31 @@
 }
 
 .statistics > div > div {
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 
 .button {
   margin-top: auto;
   align-self: flex-end;
   margin-top: 1rem;
+}
+
+.savings {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.saving > div {
+  display: flex;
+  gap: 1rem;
+}
+
+.saving > div > label {
+  flex-grow: 1;
+}
+
+.info {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
 }
