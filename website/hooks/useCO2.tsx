@@ -9,23 +9,21 @@ export interface IReport {
   co2Intensity: IIntensityCountry;
   bytes: number;
   overallsavings: {
-
-    ["offscreen-images"]: any,
-    ["unused-css-rules"]: any,
-    ["unused-javascript"]:any,
-    ["modern-image-formats"]: any,
-    ["uses-optimized-images"]: any,
-    ["uses-text-compression"]: any,
-    ["uses-responsive-images"]:any,
-    ["efficient-animated-content"]: any,
-    ["duplicated-javascript"]: any,
+    ["offscreen-images"]: any;
+    ["unused-css-rules"]: any;
+    ["unused-javascript"]: any;
+    ["modern-image-formats"]: any;
+    ["uses-optimized-images"]: any;
+    ["uses-text-compression"]: any;
+    ["uses-responsive-images"]: any;
+    ["efficient-animated-content"]: any;
+    ["duplicated-javascript"]: any;
     ["legacy-javascript"]: any;
-};
-
+  };
 }
 
 export interface IResultEvent {
-  ["total-byte-weight"]: {numericValue: number};
+  ["total-byte-weight"]: { numericValue: number };
   ["offscreen-images"]: {};
   ["unused-css-rules"]: {};
   ["unused-javascript"]: {};
@@ -51,9 +49,7 @@ export interface IOptions {
   intensity: IIntensityCountry;
 }
 
-export interface ILighthouse {
-  
-}
+export interface ILighthouse {}
 
 export default function useCO2(
   options: IOptions,
@@ -91,8 +87,6 @@ export default function useCO2(
     };
 
     const onResultEvent = (event: IResultEvent) => {
-
-      console.log('event',event)
       const bytes = event["total-byte-weight"].numericValue;
 
       const co2 = sustainableWebDesign.perByte(
