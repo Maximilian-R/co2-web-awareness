@@ -48,10 +48,10 @@ function Saving({ item }: { item: any }) {
   return (
     <div className={`card ${styles.saving}`}>
       <div>
-        <label>{item.title}</label>
-        <div> {formatBytes(item.details.overallSavingsBytes, "MB")}</div>
+        <label>{item[1].title}</label>
+        <div> {formatBytes(item[1].details.overallSavingsBytes, "MB")}</div>
       </div>
-      <div className={styles.info}>{item.description}</div>
+      <div className={styles.info}>{item[1].description}</div>
     </div>
   );
 }
