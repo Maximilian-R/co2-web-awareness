@@ -13,7 +13,7 @@ const defaultState: IParameters = {
   bytes: 1000,
   country: INTENSITY_DATA_2021[0],
   returningViewsPercentage: 25,
-  returningBytesPercentage: 50,
+  returningBytesPercentage: 2,
   unit: "kB",
 };
 

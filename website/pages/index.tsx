@@ -59,7 +59,7 @@ function Heading({ url }: { url?: string }) {
       {url ? (
         <>
           Report for:{" "}
-          <a href={url} target="_blank">
+          <a href={"https://" + url} target="_blank">
             {url}
           </a>
         </>

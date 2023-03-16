@@ -71,7 +71,7 @@ export default function useCO2(
     setError("");
     setStatus(0);
     const socket = io("http://localhost:3001");
-    socket.emit("payload", options.url);
+    socket.emit("payload", "https://" + options.url);
 
     const onConnect = () => setError("");
     const onDisconnect = () => setIsGenerating(false);
