@@ -3,10 +3,16 @@ import Menu from "@/components/menu";
 import styles from "@/styles/Calculator.module.css";
 import Parameters, { IOnChange } from "@/components/parameters";
 import { useEffect, useState } from "react";
-import { BytesUnit, formatCO2 } from "@/utility/formats";
-import { calculateCO2, calculateCO2Driving, IParameters } from "@/utility/co2";
+import { BytesUnit, formatCO2, formatNumber } from "@/utility/formats";
+import {
+  calculateCO2,
+  calculateCO2Driving,
+  calculateCO2TreeAbsorption,
+  IParameters,
+} from "@/utility/co2";
 import { useRouter } from "next/router";
 import { INTENSITY_DATA_2021 } from "@/utility/intensity";
+import { formatDrivingText } from "@/utility/distance";
 
 const defaultState: IParameters = {
   views: 10000,
@@ -60,19 +66,27 @@ export default function Calculator() {
           <h2>Yearly emissions</h2>
           <Parameters onChange={onChange} state={state}></Parameters>
         </div>
-        <div className="card">
+        <div className={`card ${styles.facts}`}>
           <div>
-            Produces{" "}
-            <span className="highlight">{formatCO2(co2, "kg")} of CO2</span>{" "}
-            every year
+            <span className="highlight">{formatNumber(state.views)}</span> page
+            views every month produces a total of{" "}
+            <span className="highlight">{formatCO2(co2, "kg")} CO2</span> over a
+            year
           </div>
-        </div>
-        <div className="card">
           <div>
             That is similar to driving a petrol car for{" "}
             <span className="highlight">
               {+calculateCO2Driving(co2).toFixed(2)}km
             </span>{" "}
+            from Stockholm to {formatDrivingText(co2)}
+          </div>
+
+          <div>
+            And equivalent to the CO2 absorption of{" "}
+            <span className="highlight">
+              {+calculateCO2TreeAbsorption(co2).toFixed(2)}
+            </span>{" "}
+            trees
           </div>
         </div>
       </main>

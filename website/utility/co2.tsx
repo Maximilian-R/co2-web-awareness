@@ -11,11 +11,11 @@ export const INTENSITY_SWE = parseFloat(averageIntensity.data.SWE);
 //   },
 // };
 
-export const ENERGY_KWH = 0.81;
+export const ANNUAL_AVG_ENERGY_KWH_PER_GB = 0.81;
 
 export const sustainableWebDesign = {
   perByte: (bytes: number, intensity: number) => {
-    const energy = (bytes / unitDecimal("G")) * ENERGY_KWH;
+    const energy = (bytes / unitDecimal("G")) * ANNUAL_AVG_ENERGY_KWH_PER_GB;
     const carbon = energy * intensity;
     return carbon;
   },
@@ -32,10 +32,10 @@ export interface IParameters {
 }
 
 export const calculateCO2 = (parameters: IParameters) => {
+  const views = parameters.views * 12;
   const firstViews =
-    ((100 - parameters.returningViewsPercentage) / 100) * parameters.views;
-  const returningViews =
-    (parameters.returningViewsPercentage / 100) * parameters.views;
+    ((100 - parameters.returningViewsPercentage) / 100) * views;
+  const returningViews = (parameters.returningViewsPercentage / 100) * views;
 
   const firstBytes = parameters.bytes * bytesUnitDecimal(parameters.unit);
   const returningBytes =
@@ -58,4 +58,9 @@ export const calculateCO2 = (parameters: IParameters) => {
 export const calculateCO2Driving = (grams: number) => {
   const co2PerKm = 120;
   return grams / co2PerKm;
+};
+
+export const calculateCO2TreeAbsorption = (grams: number) => {
+  const co2PerYear = 25 * 1000;
+  return grams / co2PerYear;
 };

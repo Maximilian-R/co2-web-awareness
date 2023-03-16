@@ -26,3 +26,7 @@ export const unitDecimal = (unit: Unit) => {
 export const bytesUnitDecimal = (unit: BytesUnit) => {
   return unitDecimal(unit.substring(0, 1) as Unit);
 };
+
+export const formatNumber = (value: number) => {
+  return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+};
