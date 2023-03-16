@@ -44,14 +44,13 @@ export default function OverallSavings({
 }
 
 function Saving({ item }: { item: any }) {
-  console.log(item);
   return (
     <div className={`card ${styles.saving}`}>
       <div>
         <label>{item.title}</label>
         <div> {formatBytes(item.details.overallSavingsBytes, "MB")}</div>
       </div>
-      <div className={styles.info}>{item.description}</div>
+      <div className={styles.info}>{item.description.split("[")[0]}</div>
     </div>
   );
 }
