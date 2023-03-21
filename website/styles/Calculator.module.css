@@ -1,0 +1,24 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "a a a"
+    "b b b";
+  gap: 1rem;
+}
+
+.facts {
+  grid-area: b;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.facts > div {
+}
+
+.facts > div:nth-child(2n) {
+  align-self: flex-end;
+}

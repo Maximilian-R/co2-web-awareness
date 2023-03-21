@@ -1,0 +1,62 @@
+.aside {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  background: var(--card-1-background);
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.ul {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ul li {
+  padding: 1rem;
+  background: var(--card-1-background);
+}
+
+.ul li:last-child {
+  flex-grow: 1;
+}
+
+.ul li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li.active {
+  background: transparent;
+  color: var(--backround-1);
+  --icon-color: var(--backround-1);
+}
+
+li.active + li {
+  border-top-right-radius: 1rem;
+}
+
+li.previous {
+  border-bottom-right-radius: 1rem;
+}
+
+.link {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.link i {
+  display: flex;
+  fill: var(--icon-color);
+  width: 1rem;
+}

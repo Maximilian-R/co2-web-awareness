@@ -1,0 +1,21 @@
+.segments {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.segment div {
+  display: grid;
+  grid-template-columns: 1fr 2rem;
+  gap: 2rem;
+  align-items: baseline;
+}
+
+.segment label {
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.value {
+  font-weight: 700;
+}

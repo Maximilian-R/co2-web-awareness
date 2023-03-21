@@ -1,0 +1,40 @@
+.radioGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.radio {
+  box-sizing: border-box;
+  width: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radio input[type="radio"] {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 0.5rem;
+  border: var(--form-group-border);
+  appearance: none;
+  cursor: pointer;
+}
+
+.radio input[type="radio"]:hover {
+}
+
+.radio input[type="radio"]:checked {
+  background: var(--color-1);
+}
+
+.radio input[type="radio"]:checked + span {
+  color: #000;
+}
+
+.radio span {
+  position: absolute;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  pointer-events: none;
+}
