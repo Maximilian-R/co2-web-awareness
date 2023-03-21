@@ -61,7 +61,7 @@ function Heading({ url }: { url?: string }) {
     </h1>
   );
 }
-
+//FUNCTION
 function Report({ report }: { report: IReport }) {
   const yearlyEmission = co2.perYear({
     bytes: report.bytes,
