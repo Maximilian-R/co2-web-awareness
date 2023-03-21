@@ -16,6 +16,7 @@ export default function ReportForm({
   const [url, setUrl] = useState<string>(options.url);
   const [intensity, setIntensity] = useState<IIntensity>(options.intensity);
 
+
   return (
     <Card style={{ gridArea: "a" }}>
       <h2>Create a report</h2>
