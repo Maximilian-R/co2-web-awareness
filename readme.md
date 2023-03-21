@@ -9,3 +9,21 @@ https://sustainablewebdesign.org/
 https://www.websitecarbon.com/
 https://developers.thegreenwebfoundation.org/
 https://www.eea.europa.eu/data-and-maps/daviz/co2-emission-intensity-12/
+
+## Run Locally
+
+Requires Node.js 14.6.0 or newer
+
+### Server
+```
+move to the server folder
+npm install
+npm run dev
+```
+
+### Website
+```
+move to the website folder
+npm install
+npm run dev
+```
