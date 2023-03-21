@@ -17,7 +17,7 @@ export default function CountrySelector({ value, onChange }: ICountrySelector) {
   };
 
   return (
-    <select name="country-selector" onChange={_onChange} value={value.value}>
+    <select name="country-selector" onChange={_onChange} value={value.country}>
       {INTENSITY_DATA_2021.map((intensity) => (
         <option key={intensity.country} value={intensity.country}>
           {intensity.country} - {intensity.value}
