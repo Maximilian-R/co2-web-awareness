@@ -5,10 +5,10 @@ Play around with parameters in the calculator to see how big impact it has on a 
 
 ## Resources
 
-https://sustainablewebdesign.org/
-https://www.websitecarbon.com/
-https://developers.thegreenwebfoundation.org/
-https://www.eea.europa.eu/data-and-maps/daviz/co2-emission-intensity-12/
+- https://sustainablewebdesign.org/
+- https://www.websitecarbon.com/
+- https://developers.thegreenwebfoundation.org/
+- https://www.eea.europa.eu/data-and-maps/daviz/co2-emission-intensity-12/
 
 ## Run Locally
 
