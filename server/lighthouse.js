@@ -1,6 +1,6 @@
 import lighthouse from "lighthouse";
 import log from "lighthouse-logger";
-import chromeLauncher from "chrome-launcher";
+import * as chromeLauncher from "chrome-launcher";
 
 const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
 
