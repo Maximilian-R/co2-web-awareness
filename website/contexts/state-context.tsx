@@ -18,6 +18,7 @@ export function StateContextProvider({ children }: any) {
     options: {
       url: "",
       intensity: INTENSITY_DATA_2021[0],
+      config: "mobile",
     },
     report: undefined,
   });

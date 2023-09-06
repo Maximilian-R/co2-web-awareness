@@ -1,5 +1,7 @@
 import lighthouse from "lighthouse";
 import log from "lighthouse-logger";
+import desktopConfig from "lighthouse/core/config/lr-desktop-config.js";
+import mobileConfig from "lighthouse/core/config/lr-mobile-config.js";
 import * as chromeLauncher from "chrome-launcher";
 
 const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
@@ -11,8 +13,13 @@ const options = {
   port: chrome.port,
 };
 
-const generateReport = async (url) => {
-  const runner = await lighthouse(url, options);
+const configs = {
+  desktop: desktopConfig,
+  mobile: mobileConfig,
+};
+
+const generateReport = async (url, config) => {
+  const runner = await lighthouse(url, options, configs[config]);
   const audits = runner.lhr.audits;
   const report = {
     bytes: audits["total-byte-weight"].numericValue,
@@ -29,6 +36,7 @@ const generateReport = async (url) => {
       audits["legacy-javascript"],
       audits["efficient-animated-content"],
     ],
+    image: audits["final-screenshot"].details.data,
   };
   return report;
 };

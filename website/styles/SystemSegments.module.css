@@ -4,9 +4,9 @@
   gap: 1rem;
 }
 
-.segment div {
+.segment > div {
   display: grid;
-  grid-template-columns: 1fr 2rem;
+  grid-template-columns: 1fr auto;
   gap: 2rem;
   align-items: baseline;
 }

@@ -61,7 +61,7 @@ function Heading({ url }: { url?: string }) {
     </h1>
   );
 }
-//FUNCTION
+
 function Report({ report }: { report: IReport }) {
   const yearlyEmission = co2.perYear({
     bytes: report.bytes,
@@ -92,6 +92,17 @@ function Report({ report }: { report: IReport }) {
         style={{ gridArea: "d" }}
         report={report}
       ></OverallSavings>
+      <Card style={{ gridArea: "e" }}>
+        <h2>Final screenshot</h2>
+        <img
+          src={report.image}
+          style={{
+            borderRadius: "0.25rem",
+            maxHeight: "400px",
+            maxWidth: "100%",
+          }}
+        />
+      </Card>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CountrySelector from "./country-selector";
+import ConfigSelector from "./config-selector";
 import { IOptions } from "@/hooks/useCO2";
 import { IIntensity } from "@/utility/intensity";
 import Card from "./card";
@@ -15,7 +16,7 @@ export default function ReportForm({
 }) {
   const [url, setUrl] = useState<string>(options.url);
   const [intensity, setIntensity] = useState<IIntensity>(options.intensity);
-
+  const [config, setConfig] = useState<string>(options.config);
 
   return (
     <Card style={{ gridArea: "a" }}>
@@ -26,7 +27,7 @@ export default function ReportForm({
         className="grid"
         onSubmit={(event) => {
           event.preventDefault();
-          onChange({ url, intensity });
+          onChange({ url, intensity, config });
         }}
       >
         <div>
@@ -45,6 +46,13 @@ export default function ReportForm({
                 onChange={(country) => setIntensity(country)}
               ></CountrySelector>
             </div>
+          </div>
+          <div className="form-group">
+            <label>Config</label>
+            <ConfigSelector
+              value={config}
+              onChange={(config) => setConfig(config)}
+            />
           </div>
         </div>
 

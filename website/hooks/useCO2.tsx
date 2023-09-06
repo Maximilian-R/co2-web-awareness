@@ -17,11 +17,14 @@ export interface IReport {
   co2Intensity: IIntensity;
   bytes: number;
   savings: ISaving[];
+  image: string;
+  config: string;
 }
 
 export interface IResultEvent {
   bytes: number;
   savings: ISaving[];
+  image: string;
 }
 
 export type IStatusEvent = number;
@@ -31,6 +34,7 @@ export type IErrorEvent = string;
 export interface IOptions {
   url: string;
   intensity: IIntensity;
+  config: string;
 }
 
 export default function useCO2(
@@ -46,7 +50,8 @@ export default function useCO2(
     if (
       !options.url ||
       (options.url === initialState?.url &&
-        options.intensity === initialState?.co2Intensity)
+        options.intensity === initialState?.co2Intensity &&
+        options.config === initialState?.config)
     )
       return;
 
@@ -55,7 +60,10 @@ export default function useCO2(
     setError("");
     setStatus(0);
     const socket = io("http://localhost:3001");
-    socket.emit("generate", "https://" + options.url);
+    socket.emit("generate", {
+      url: "https://" + options.url,
+      config: options.config,
+    });
 
     const onConnect = () => setError("");
     const onDisconnect = () => setIsGenerating(false);
@@ -83,6 +91,8 @@ export default function useCO2(
           co2Intensity: options.intensity,
           bytes: bytes,
           savings: event.savings,
+          image: event.image,
+          config: options.config,
         });
 
         socket.disconnect();

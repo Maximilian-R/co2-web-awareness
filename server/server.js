@@ -21,14 +21,17 @@ const io = new Server(httpServer, { cors: { origin: "*" } });
 io.on("connection", (socket) => {
   console.log("Connection established");
 
-  socket.on("generate", async (url) => {
-    console.log("On generate:", url);
+  socket.on("generate", async (options) => {
+    console.log("On generate:", options.url);
     try {
       lighthouse.trackProgress(socket, (status) => {
         socket.emit("status", status);
         console.log("status", status);
       });
-      const report = await lighthouse.generateReport(url);
+      const report = await lighthouse.generateReport(
+        options.url,
+        options.config
+      );
       socket.emit("report", report);
       console.log("Report generated");
     } catch (error) {

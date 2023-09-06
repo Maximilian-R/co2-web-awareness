@@ -8,6 +8,18 @@
     "d d e";
 }
 
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "a"
+      "b"
+      "c"
+      "d"
+      "e";
+  }
+}
+
 .progress {
   margin-top: 1rem;
   height: 1.5rem;
