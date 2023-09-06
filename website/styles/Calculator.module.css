@@ -11,14 +11,14 @@
   grid-area: b;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  font-size: 1.5rem;
+  gap: 1rem;
   line-height: 1.5;
+  font-size: 1.5rem;
 }
 
-.facts > div {
-}
-
-.facts > div:nth-child(2n) {
-  align-self: flex-end;
+.equivalent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }

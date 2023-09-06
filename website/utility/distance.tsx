@@ -44,9 +44,10 @@ export const formatDrivingText = (distance: number) => {
     <>
       {closest.location}{" "}
       {times > 1.1 && (
-        <Highlight>
-          {formatDecimal(times, times >= 100 ? 0 : 1)} times
-        </Highlight>
+        <>
+          <Highlight>{formatDecimal(times, times >= 100 ? 0 : 1)}</Highlight>{" "}
+          times
+        </>
       )}
     </>
   );

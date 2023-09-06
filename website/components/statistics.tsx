@@ -4,6 +4,7 @@ import { formatBytes, formatCO2 } from "@/utility/formats";
 import { useRouter } from "next/router";
 import { CSSProperties } from "react";
 import Card from "./card";
+import Highlight from "./highlight";
 
 export default function Statistics({
   style,
@@ -21,18 +22,24 @@ export default function Statistics({
       <div className={styles.statistics}>
         <Card>
           <label>CO2</label>
-          <div>{formatCO2(report.emission.co2) ?? "--"}</div>
+          <div>
+            <Highlight>{formatCO2(report.emission.co2) ?? "--"}</Highlight>
+          </div>
         </Card>
         <Card>
           <label>CO2 intensity</label>
           <div>
-            {formatCO2(report.co2Intensity.value) ?? "--"}
-            /kWh
+            <Highlight>
+              {formatCO2(report.co2Intensity.value) ?? "--"}
+              /kWh
+            </Highlight>
           </div>
         </Card>
         <Card>
           <label>Transfered size</label>
-          <div>{formatBytes(report.bytes) ?? "--"}</div>
+          <div>
+            <Highlight>{formatBytes(report.bytes) ?? "--"}</Highlight>
+          </div>
         </Card>
       </div>
       <button

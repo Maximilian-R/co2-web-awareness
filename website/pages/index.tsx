@@ -48,7 +48,7 @@ export default function Home() {
 function Heading({ url }: { url?: string }) {
   return (
     <h1>
-      {url ? (
+      {/* {url ? (
         <>
           Report for:{" "}
           <a href={"https://" + url} target="_blank">
@@ -57,7 +57,8 @@ function Heading({ url }: { url?: string }) {
         </>
       ) : (
         <>Report</>
-      )}
+      )} */}
+      Site Analyzer
     </h1>
   );
 }
@@ -73,7 +74,7 @@ function Report({ report }: { report: IReport }) {
   });
   return (
     <div className={styles.grid}>
-      <Card style={{ gridArea: "a" }}>
+      {/* <Card style={{ gridArea: "a" }}>
         <p style={{ margin: 0, fontSize: "1.5em", lineHeight: "1.5" }}>
           A single page view produces{" "}
           <Highlight>{formatCO2(report.emission.co2)} CO2</Highlight> on your
@@ -82,7 +83,13 @@ function Report({ report }: { report: IReport }) {
           <Highlight>{formatCO2(yearlyEmission.co2)} CO2</Highlight> over a
           year.
         </p>
-      </Card>
+      </Card> */}
+      <h2 style={{ margin: 0, gridArea: "a" }}>
+        Results for:{" "}
+        <a href={"https://" + report.url} target="_blank">
+          {report.url}
+        </a>
+      </h2>
       <Statistics style={{ gridArea: "b" }} report={report}></Statistics>
       <SystemSegements
         style={{ gridArea: "c" }}
@@ -93,7 +100,7 @@ function Report({ report }: { report: IReport }) {
         report={report}
       ></OverallSavings>
       <Card style={{ gridArea: "e" }}>
-        <h2>Final screenshot</h2>
+        <h2>Screenshot</h2>
         <img
           src={report.image}
           style={{

@@ -63,7 +63,7 @@ export default function Calculator() {
         <h1>Calculator</h1>
         <div className={styles.grid}>
           <Card style={{ gridArea: "a" }}>
-            <h2>Yearly emissions</h2>
+            <h2>Data</h2>
             <Parameters onChange={onChange} state={state}></Parameters>
           </Card>
           <Facts state={state} emission={emission}></Facts>
@@ -86,31 +86,33 @@ function Facts({
   return (
     <div className={`card ${styles.facts}`}>
       <div>
-        <Highlight>{formatNumber(state.views)}</Highlight> page views every
-        month produces a total of{" "}
-        <Highlight>{formatCO2(emission.co2)} CO2</Highlight> over a year
+        <h2>Emission per year</h2>
+        <Card>
+          <Highlight>{formatNumber(state.views * 12)}</Highlight> views produces
+          a total of <Highlight>{formatCO2(emission.co2)}</Highlight> CO2
+        </Card>
       </div>
-      <div>
-        That is equivalent to the CO2 absorption of{" "}
-        <Highlight>
-          {formatDecimal(treeAbsorption, treeAbsorption >= 100 ? 0 : 2)}
-        </Highlight>{" "}
-        trees
-      </div>
-      <div>
-        and driving a petrol car for{" "}
-        <Highlight>{formatDistance(drivingDistance)}</Highlight>
-      </div>
-      <div>
-        ~ the roads between Stockholm and {formatDrivingText(drivingDistance)}
-      </div>
-      <div>
-        The required energy was{" "}
-        <Highlight>{formatEnergy(emission.energy)}</Highlight>
-      </div>
-      <div>
-        and could power a tv for{" "}
-        <Highlight>{formatDecimal(tvHours, 0)} hours</Highlight>
+      <h2>Is equivalent to</h2>
+      <div className={styles.equivalent}>
+        <Card>
+          The CO2 absorption of{" "}
+          <Highlight>
+            {formatDecimal(treeAbsorption, treeAbsorption >= 100 ? 0 : 2)}
+          </Highlight>{" "}
+          trees
+        </Card>
+        <Card>
+          Driving a petrol car{" "}
+          <Highlight>{formatDistance(drivingDistance)}</Highlight> between
+          Stockholm and {formatDrivingText(drivingDistance)}
+        </Card>
+        <Card>
+          <Highlight>{formatEnergy(emission.energy)}</Highlight> of Energy
+        </Card>
+        <Card>
+          Watching tv for <Highlight>{formatDecimal(tvHours, 0)}</Highlight>{" "}
+          hours
+        </Card>
       </div>
     </div>
   );
