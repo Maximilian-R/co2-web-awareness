@@ -1,4 +1,4 @@
-# CO2 Web Awareness
+# :recycle: CO2 Web Awareness :recycle:
 
 Calculates the estimated carbon dioxide emission for a webpage and provides some statistics.
 Play around with parameters in the calculator to see how big impact it has on a larger scale.
